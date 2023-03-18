@@ -2,7 +2,7 @@
 
 ## Template
 
-### ADR-[no]: short titel 
+### ADR-[no]: short title 
 * Status: [proposed | rejected | accepted | deprecated | … | superseded by ADR-0005]
 * Deciders: [list everyone involved in the decision]
 * Date: [YYYY-MM-DD when the decision was last updated]
@@ -35,7 +35,8 @@ Important documents or articles that supplemented the decision process.
 Technical Story: none
 
 #### Context
-What is the issue that we're seeing that is motivating this decision or change?
+There are multiple ways to create awareness for the upcoming changes for 3rd party cookies caused by the EU ePrivacy Directive 2022.
+We have to decide on a way that is achievable during the Cloudfest Hackathon and providing value for technical and non-technical users.
 
 #### Considered Options
 * Browser Plugin
