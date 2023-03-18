@@ -9,15 +9,15 @@
     "default_title": "Cookies cookies cookies"
   },
   "permissions": [
+    "tabs",
+    "<all_urls>",
     "contextMenus",
     "cookies",
     "history",
     "webRequest",
     "declarativeNetRequest"
   ],
-  "host_permissions": [
-    "*://*/*"
-  ],
+  "host_permissions": ["*://*/*"],
   "background": {
     "service_worker": "sample.js",
     "type": "module"
