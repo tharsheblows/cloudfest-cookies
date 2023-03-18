@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "Cloudfest Cookies",
+  "version": "0.1.0",
+  "description": "My Chrome Extension",
+  "devtools_page": "devtools/page.html",
+  "action": {
+    "default_icon": "icons/take-a-bite.png",
+    "default_title": "Cloudfest Cookies",
+    "default_popup": "index.html"
+  },
+  "permissions": [
+    "contextMenus",
+    "cookies",
+    "history",
+    "webRequest",
+    "declarativeNetRequest"
+  ],
+  "host_permissions": [
+    "*://*/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "run_at": "document_idle",
+      "js": [
+        "contentScript.js"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+User -> Browser: enters URL
+Browser --> Browser: check for relevant 1st party cookies
+Browser --> Browser: check for relevant 3rd party cookies
+
+Browser --> Server: request web page
+Server --> Browser: send web page with customized content
+
+
+@enduml
