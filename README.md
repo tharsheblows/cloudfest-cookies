@@ -12,11 +12,11 @@
 ## Documentation
 ### Sketches
 
-![Modules](./documentation/images/workflow_drawing.jpg)
+![Modules](docs/images/workflow_drawing.jpg)
 
 ## Development modules
 
-![Modules](./documentation/modules.svg)
+![Modules](docs/architecture/charts/modules.svg)
 
 
 ### Cloudfest Hackathon
