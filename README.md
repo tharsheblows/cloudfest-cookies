@@ -20,7 +20,7 @@
 
 
 ### Cloudfest Hackathon
-This Extension was developed while the [Cloudfest Hackathon 2023](https://www.cloudfest.com/hackathon). 
+This Extension was developed during the [Cloudfest Hackathon 2023](https://www.cloudfest.com/hackathon). 
 
 # Running the project
 
