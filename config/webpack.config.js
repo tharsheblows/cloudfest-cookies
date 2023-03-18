@@ -13,6 +13,7 @@ const config = (env, argv) =>
       helloChookies: PATHS.src + '/helloChookies.ts',
       parser: PATHS.src + '/parser.js',
       psl: PATHS.src + '/psl.min.js',
+      cookies: PATHS.src + '/storage/cookies.ts',
     },
     devtool: argv.mode === 'production' ? false : 'source-map',
   });
