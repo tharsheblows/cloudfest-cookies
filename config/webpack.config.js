@@ -10,7 +10,8 @@ const config = (env, argv) =>
   merge(common, {
     entry: {
       contentScript: PATHS.src + '/contentScript.ts',
-      helloChookies: PATHS.src + '/helloChookies.ts',
+      helloChookies: PATHS.src + '/helloChookies.js',
+      getCookies: PATHS.src + '/getCookies.js',
       parser: PATHS.src + '/parser.js',
       psl: PATHS.src + '/psl.min.js',
     },
