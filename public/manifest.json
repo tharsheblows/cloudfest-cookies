@@ -3,11 +3,11 @@
   "name": "Cloudfest Cookies",
   "version": "0.1.0",
   "description": "My Chrome Extension",
-  "devtools_page": "index.html",
+  "devtools_page": "devtools/devtools.html",
   "action": {
     "default_icon": "icons/take-a-bite.png",
     "default_title": "Cloudfest Cookies",
-    "default_popup": "devtools/page.html"
+    "default_popup": "devtools/index.html"
   },
   "permissions": [
     "contextMenus",
