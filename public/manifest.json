@@ -3,6 +3,7 @@
   "name": "Cloudfest Cookies",
   "version": "0.1.0",
   "description": "My Chrome Extension",
+  "devtools_page": "devtools/page.html",
   "action": {
     "default_icon": "icons/take-a-bite.png",
     "default_title": "Cloudfest Cookies",
