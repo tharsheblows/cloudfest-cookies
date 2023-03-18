@@ -1,21 +1,24 @@
-# <img src="public/icons/icon_48.png" width="45" align="left"> Cloudfest Cookies
+# Cookie Analysis Tool
 
-My Chrome Extension
+## Purpose
+- TBD
 
-## Features
+## Ideas
+- TBD
 
-- Feature 1
-- Feature 2
+## Future Improvements
+- TBD
 
-## Install
+## Documentation
+### Sketches
 
-[**Chrome** extension]() <!-- TODO: Add chrome extension link inside parenthesis -->
+![Modules](./documentation/images/workflow_drawing.jpg)
 
-## Contribution
+## Development modules
 
-Suggestions and pull requests are welcomed!.
+![Modules](./documentation/modules.svg)
 
----
 
-This project was bootstrapped with [Chrome Extension CLI](https://github.com/dutiyesh/chrome-extension-cli)
+### Cloudfest Hackathon
+This Extension was developed while the [Cloudfest Hackathon 2023](https://www.cloudfest.com/hackathon). 
 
