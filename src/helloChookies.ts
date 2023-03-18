@@ -1,5 +1,5 @@
 
-let cookies;
+let cookies: chrome.cookies.Cookie[] | string[];
 let deletedCookie = "EMTY";
 chrome.cookies.getAll({
 }, function (theCookies) {
@@ -29,7 +29,7 @@ function printAll() {
 }
 
 function deleteFirstOne(){
-deletedCookie = cookies.pop()
+deletedCookie = <string>cookies.pop()
 }
 function printDeleteOne(){
 console.log(deletedCookie)
