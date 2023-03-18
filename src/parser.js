@@ -1,3 +1,4 @@
+const psl = require('./psl.min.js')
 function categorizeCookies(cookies, hostname) {
   const firstParty = [];
   const thirdParty = [];

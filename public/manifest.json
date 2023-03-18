@@ -14,8 +14,14 @@
     "default_popup": "index.html"
   },
   "permissions": [
-    "storage",
-    "cookies"
+    "contextMenus",
+    "cookies",
+    "history",
+    "webRequest",
+    "declarativeNetRequest"
+  ],
+  "host_permissions": [
+    "*://*/*"
   ],
   "content_scripts": [
     {
