@@ -19,7 +19,7 @@
     "*://*/*"
   ],
   "background": {
-    "service_worker": "sample.js",
+
     "type": "module"
   }
 }
