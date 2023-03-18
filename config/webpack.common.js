@@ -62,6 +62,7 @@ const common = {
     new CopyWebpackPlugin({
       patterns: [
         {from: 'node_modules/material-design-lite', to: 'material-design-lite'},
+        {from: 'node_modules/material-icons-font', to: 'material-icons-font'},
         {
           from: '**/*',
           context: 'public',
