@@ -11,6 +11,7 @@
   * [Sketches](#sketches)
   * [Development modules](#development-modules)
   * [White box view](#whitebox-view)
+  * [Architecture Decision Records (ADRs)](#architecture-decision-records-adrs)
 * [Cloudfest Hackathon](#cloudfest-hackathon)
 * [Development](#development)
   * [How to run the project?](#running-the-project)
@@ -42,6 +43,9 @@ First sketch of the approach of cutting the project into modules.
 
 ![Whitebox](docs/architecture/charts/whitebox_view.svg)
 
+## Architecture Decision Records (ADRs)
+
+Find the ADRs [here](docs/architecture/ADRs.md).
 
 ### Cloudfest Hackathon
 This Extension was developed during the [Cloudfest Hackathon 2023](https://www.cloudfest.com/hackathon). 
