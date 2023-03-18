@@ -1,4 +1,3 @@
-
 let cookies: chrome.cookies.Cookie[] | string[];
 let deletedCookie = "EMTY";
 chrome.cookies.getAll({
