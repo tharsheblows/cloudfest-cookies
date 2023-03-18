@@ -22,3 +22,9 @@
 ### Cloudfest Hackathon
 This Extension was developed while the [Cloudfest Hackathon 2023](https://www.cloudfest.com/hackathon). 
 
+# Running the project
+
+```shell
+npm run watch
+```
+Afterward add the `build` folder in your chrome extensions (after enabling developer mode). 
