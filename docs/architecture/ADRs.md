@@ -1,7 +1,8 @@
 # Architecture Decision Records (ADRs)
 
 ## Template
-### ADR-[no]: short title 
+
+### ADR-[no]: short titel 
 * Status: [proposed | rejected | accepted | deprecated | … | superseded by ADR-0005]
 * Deciders: [list everyone involved in the decision]
 * Date: [YYYY-MM-DD when the decision was last updated]
@@ -23,8 +24,7 @@ What is the change that we're proposing and/or doing?
 What becomes easier or more difficult to do because of this change?
 
 #### Notes / Links
-Important documents or articles that supplemented the decision process. 
-
+Important documents or articles that supplemented the decision process.
 
 ## Architecture Decision Log (ADL)
 ### ADR-1: Hackathon Scope
