@@ -19,7 +19,7 @@
 <!--te-->
 
 ## Purpose
-Many websites rely on the usage of 3rd party cookies. By mid 2024, all 3rd party cookies will be blocked in most browsers, including Google Chrome. (Eg. Safari is already blocking those cookies.)
+Many websites rely on the usage of 3rd party cookies. By mid 2024, all 3rd party cookies will be blocked in most browsers, including Google Chrome (e.g. Safari is already blocking those cookies).
 With this browser extension we want to give the opportunity to evaluate a webpage for relying on 3rd party cookies.
 
 ## Ideas
