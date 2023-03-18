@@ -15,10 +15,11 @@ async function sendForCookies() {
   const hostname = new URL(url).hostname;
   const cookies = response.cookies;
 
-  return displayCookies(cookies, hostname );
+  return { cookies, hostname }
 }
 
-function displayCookies(cookies, hostname) {
+async function displayCookies() {
+  const { cookies, hostname } = await sendForCookies();
   const container = document.getElementById("cookieList");
   container.innerHTML = "";
 
@@ -72,7 +73,7 @@ function categorizeCookies(cookies, hostname) {
 
 document.getElementById("buttonsDelete").addEventListener("click", deleteFirstOne);
 document.getElementById("buttonsAdd").addEventListener("click", addFirstOne);
-document.getElementById("sendForCookies").addEventListener('click', sendForCookies);
+document.getElementById("sendForCookies").addEventListener('click', displayCookies);
 document.getElementById("buttonsPrintAll").addEventListener("click", printAll);
 
 

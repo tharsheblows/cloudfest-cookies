@@ -61,6 +61,8 @@ const common = {
     // Copy static assets from `public` folder to `build` folder
     new CopyWebpackPlugin({
       patterns: [
+        {from: 'node_modules/material-design-lite', to: 'material-design-lite'},
+        {from: 'node_modules/material-icons-font', to: 'material-icons-font'},
         {
           from: '**/*',
           context: 'public',

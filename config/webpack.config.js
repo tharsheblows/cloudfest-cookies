@@ -14,6 +14,7 @@ const config = (env, argv) =>
       getCookies: PATHS.src + '/getCookies.js',
       parser: PATHS.src + '/parser.js',
       psl: PATHS.src + '/psl.min.js',
+      cookies: PATHS.src + '/storage/cookies.ts',
     },
     devtool: argv.mode === 'production' ? false : 'source-map',
   });

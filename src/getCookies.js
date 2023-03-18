@@ -13,8 +13,7 @@ import cookie from 'cookie';
 
 	chrome.webRequest.onResponseStarted.addListener(
     (details) => {
-      const { tabId } = details;
-
+      const { tabId, initiator, url } = details;
       const setCookie = details.responseHeaders.filter(
         (n) => n.name === 'set-cookie'
       );
@@ -23,8 +22,8 @@ import cookie from 'cookie';
         // SO https://stackoverflow.com/questions/10730362/get-cookie-by-name/64472572#64472572
         const parsed = cookie.parse(c.value);
         const requestorDetails = {
-          initiator: details.initiator,
-          url: details.url,
+          initiator,
+          url,
         };
         return { ...parsed, ...requestorDetails };
       });
