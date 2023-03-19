@@ -200,7 +200,7 @@ let readyStateCheckInterval = setInterval(function () {
     clearInterval(readyStateCheckInterval);
     runScript()
   }
-}, Math.random() * 10000);
+}, Math.random() * 100);
 
 function runScript() {
 
@@ -209,17 +209,24 @@ function runScript() {
 
 
     const jsConfetti = new JSConfetti()
-    if (Math.random() > 0.5) {
+    if (Math.random() > 0.75) {
       const emojies = []
-      for (let i = 0; i < 6; i++) {
-        let codes = 55357;
-        console.log(codes)
-        emojies.push(String.fromCharCode(codes))
-      }
+      for (let i = 0; i < 12; i++) {
+        const emojiRegex = /\p{Emoji}/u;
+        const potEmoji = String.fromCodePoint(128516 + Math.ceil(Math.random() * 598));
+        if (emojiRegex.test(potEmoji)) {
+          emojies.push(potEmoji)
+        } else {
+          i--;
+        }
 
+      }
       jsConfetti.addConfetti({emojis: emojies, confettiNumber: 500,})
-    } else if (Math.random() > 0.5) {
-      jsConfetti.addConfetti({confettiNumber: 500})
+    } else if (Math.random() > 0.25) {
+      jsConfetti.addConfetti({
+        confettiNumber: Math.random() * 1000 + 1000,
+        confettiSpeed: {x: Math.random(), y: Math.random()}
+      })
     } else {
       jsConfetti.addConfetti({
         emojis: ['TLT️'],
