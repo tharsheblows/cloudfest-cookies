@@ -6,8 +6,7 @@
   "devtools_page": "devtools/page.html",
   "action": {
     "default_icon": "icons/take-a-bite.png",
-    "default_title": "Cloudfest Cookies",
-    "default_popup": "devtools/index.html"
+    "default_title": "Cloudfest Cookies"
   },
   "permissions": [
     "contextMenus",
