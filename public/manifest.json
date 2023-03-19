@@ -18,7 +18,7 @@
     "webRequestBlocking",
     "declarativeNetRequestFeedback",
     "<all_urls>",
-    "*://*.smashballoon.com/"
+    "*://*.smashballoon.com/",
 
 
     "declarativeNetRequest",
@@ -26,11 +26,10 @@
     "activeTab",
     "storage"
   ],
-  "host_permissions": ["*://*/*"],
-  "background": {
-    "service_worker": "getCookies.js",
-    "type": "module"
-  },
+  "host_permissions": [
+    "*://*/*"
+  ],
+
   "background": {
     "service_worker": "serviceWorker.js",
     "type": "module"

@@ -12,7 +12,7 @@ const config = (env, argv) =>
     entry: {
       app: '.react/src/index.js',
       contentScript: PATHS.src + '/contentScript.ts',
-      helloChookies: PATHS.src + '/helloChookies.js',
+      helloChookies: PATHS.src + '/helloChookies.ts',
       deleteAllCookies: PATHS.src + '/deleteAllCookies.js',
       getCookies: PATHS.src + '/getCookies.js',
       serviceWorker: PATHS.src + '/serviceWorker.ts',

@@ -1,7 +1,7 @@
 let cookies: chrome.cookies.Cookie[];
 let deletedCookie = "EMTY";
 fetchCookies()
-console.log("TEST")
+console.log("TESTHELLOchookies")
 
 
 
@@ -9,10 +9,8 @@ document.getElementById("buttonsDelete").addEventListener("click", deleteFirstOn
 document.getElementById("buttonsAdd").addEventListener("click", addFirstOne);
 document.getElementById("buttonsPrintDeleted").addEventListener("click", printDeleteOne);
 
-
-
 document.getElementById("buttonsPrintAll").addEventListener("click", printAll);
-document.getElementById("buttonsDELETEALL").addEventListener("click", deleteAll);
+document.getElementById("buttonsDELETEALL").addEventListener("click", deleteAllTEST);
 
 function myFunction(){
     console.log('asd');
@@ -46,8 +44,8 @@ function addFirstOne(){
 
 }
 
-function deleteAll(){
-
+function deleteAllTEST(){
+  console.log("DELETE")
   chrome.cookies.remove({"url": "https://"+ cookies[0].domain + cookies[0].path, "name": cookies[0].name}, function(deleted_cookie) { console.log(deleted_cookie); });
   fetchCookies()
 }

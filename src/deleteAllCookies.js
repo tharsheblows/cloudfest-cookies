@@ -1,4 +1,7 @@
 
+function deleteAllCookies(){
+
+}
 export default function () {
   // Thank you nameless user https://stackoverflow.com/questions/74021842/chrome-extension-remove-cookies.
   //get all cookies belongs to us and allowed by the host_permissions:
