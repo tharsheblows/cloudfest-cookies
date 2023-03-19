@@ -48,7 +48,10 @@ const cookiesTemp = [
 
 export default function Example() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [currentCookie, setCurrentCookie] = useState({});
+  const [currentCookie, setCurrentCookie] = useState({
+    cookie: {},
+    analytics: {},
+  });
   const { subscribe, getSnapshot } =
     /*global chrome .*/
     cookies.getSyncStore(chrome?.devtools?.inspectedWindow?.tabId);
@@ -85,20 +88,36 @@ export default function Example() {
                   role="list"
                   className="divide-y divide-gray-200 border-b border-gray-200"
                 >
-                  {cookieData.cookies.map((cookie) => (
-                    <li key={cookie.id}>
-                      <CookiePreview
-                        cookie={cookie}
-                        isActive={cookie.id === currentCookie.id}
-                        onClick={() => setCurrentCookie(cookie)}
-                      />
-                    </li>
-                  ))}
+                  {cookieData.cookies.map(
+                    ({ cookie, analytics, origin, toplevel }) => {
+                      console.log({ cookie });
+                      console.log({ analytics });
+                      console.log({ origin });
+                      console.log({ toplevel });
+                      return (
+                        <li key={cookie.name}>
+                          <CookiePreview
+                            cookie={cookie}
+                            analytics={analytics}
+                            origin={origin}
+                            toplevel={toplevel}
+                            isActive={cookie.name === currentCookie.cookie.name}
+                            onClick={() =>
+                              setCurrentCookie({ cookie, analytics })
+                            }
+                          />
+                        </li>
+                      );
+                    }
+                  )}
                 </ul>
               </div>
             </aside>
             <main className="relative z-0 flex-1 overflow-y-auto focus:outline-none">
-              <CookieDetails cookie={currentCookie} />
+              <CookieDetails
+                cookie={currentCookie.cookie}
+                analytics={currentCookie.analytics}
+              />
             </main>
           </div>
         </div>

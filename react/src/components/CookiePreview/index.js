@@ -1,6 +1,13 @@
 import React from 'react';
 
-const CookiePreview = ({ cookie, isActive, onClick }) => {
+const CookiePreview = ({
+  cookie,
+  analytics,
+  origin,
+  toplevel,
+  isActive,
+  onClick,
+}) => {
   const classNames = (...classes) => {
     return classes.filter(Boolean).join(' ');
   };
@@ -26,17 +33,17 @@ const CookiePreview = ({ cookie, isActive, onClick }) => {
           </div>
           <div className="ml-2 flex flex-shrink-0">
             <span className="bg-blue-400 mr-1 text-white inline-flex rounded-full px-2 text-xs font-semibold leading-5">
-              {cookie.category}
+              {analytics?.category || 'Uncategorized'}
             </span>
             <span
               className={classNames(
-                cookie.active
+                toplevel.includes(cookie.domain)
                   ? 'bg-green-100 text-green-800'
                   : 'bg-orange-400 text-white',
                 'inline-flex rounded-full px-2 text-xs font-semibold leading-5'
               )}
             >
-              {cookie.active ? '1st Party' : '3rd Party'}
+              {toplevel.includes(cookie.domain) ? '1st Party' : '3rd Party'}
             </span>
           </div>
         </div>

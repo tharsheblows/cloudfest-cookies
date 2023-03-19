@@ -1,8 +1,9 @@
 import cookie from 'simple-cookie';
 import type { Cookie } from 'simple-cookie';
+import { cookieInfoHashMap } from './analyticsCookies';
+//import CookieDetails from '../../react/src/components/CookieDetails/index';
 
-let _store: { [tabId: string]: typeof empty } =
-  {};
+let _store: { [tabId: string]: typeof empty } = {};
 let _listeners: {
   [tabId: string]: {
     subscriber: (() => void)[];
@@ -12,7 +13,10 @@ let _listeners: {
   };
 } = {};
 
-const empty: { cookies: Cookie[]; url: URL | undefined } = { cookies: [], url: undefined }
+const empty: { cookies: Cookie[]; url: URL | undefined } = {
+  cookies: [],
+  url: undefined,
+};
 
 type CookieStore = {
   addFromRequest: (tabId: number, request: Request) => void;
@@ -31,22 +35,90 @@ type Header = {
   value?: string;
 };
 
+type CookieAnalytics = {
+  id: string;
+  platform: string;
+  category: string;
+  subCategory: string;
+  functionality: string;
+  description: string;
+  dataController: string;
+  GDPRPortal: string;
+  retentionPeriod: string;
+  usage: string;
+  popularity: string;
+  comment: string[];
+};
+
+function getJsonAttributeIgnoreCase(json: JSON, attrName: string) {
+  return json.hasOwnProperty(attrName)
+    ? //@ts-ignore
+      json[attrName]
+    : //@ts-ignore
+      json[attrName.toLowerCase()];
+}
+
+function jsonToCookieAnalytics(cookieAnalyticsJson: JSON) {
+  let cookieAnalytics: CookieAnalytics = {
+    id: getJsonAttributeIgnoreCase(cookieAnalyticsJson, 'ID'),
+    platform: getJsonAttributeIgnoreCase(cookieAnalyticsJson, 'Platform'),
+    category: getJsonAttributeIgnoreCase(cookieAnalyticsJson, 'Category'),
+    subCategory: undefined,
+    functionality: undefined,
+    description: getJsonAttributeIgnoreCase(cookieAnalyticsJson, 'Description'),
+    dataController: getJsonAttributeIgnoreCase(
+      cookieAnalyticsJson,
+      'DataController'
+    ),
+    GDPRPortal: getJsonAttributeIgnoreCase(cookieAnalyticsJson, 'GDPR'),
+    retentionPeriod: getJsonAttributeIgnoreCase(
+      cookieAnalyticsJson,
+      'Retention'
+    ),
+    usage: undefined,
+    popularity: undefined,
+    comment: undefined,
+  };
+  return cookieAnalytics;
+}
+
 const mkHeaderToCookie =
-  (url: string, initiator: string | undefined) =>
-    (header: Header): Cookie | undefined => {
-      // console.log(`${header.name}: ${header.value}`)
-      if (!header.value || header.name.toLowerCase() !== 'set-cookie') {
-        return;
+  (url: string, top: string | undefined) =>
+  (
+    header: Header
+  ):
+    | {
+        cookie: Cookie;
+        analytics: CookieAnalytics;
+        origin: string;
+        toplevel: string;
       }
-      const c = cookie.parse(header.value);
-      return c;
-    };
+    | undefined => {
+    // console.log(`${header.name}: ${header.value}`)
+    if (!header.value || header.name.toLowerCase() !== 'set-cookie') {
+      return;
+    }
+    const c = cookie.parse(header.value);
+
+    let analytics;
+    if (cookieInfoHashMap.hasOwnProperty(c.name)) {
+      // @ts-ignore
+      let analyticsFromCsvJSON = cookieInfoHashMap[c.name][0];
+      analytics = jsonToCookieAnalytics(analyticsFromCsvJSON);
+    }
+    let origin = new URL(url).origin;
+    let toplevel = new URL(top).origin;
+    return { cookie: c, analytics, origin, toplevel };
+  };
 
 export const cookies: CookieStore = {
   async addFromRequest(tabId: number, { headers, initiator, url }) {
+    const tab = await chrome.tabs.get(tabId);
     const newCookies = headers
-      .map(mkHeaderToCookie(url, initiator))
-      .filter((x: Cookie | undefined) => x);
+      .map(mkHeaderToCookie(url, tab.url))
+      .filter(
+        (x: { cookie: Cookie; analytics: CookieAnalytics } | undefined) => x
+      );
     const storage = await chrome.storage.local.get(tabId + '');
     if (!storage[tabId]) {
       storage[tabId] = { cookies: [], url: undefined };

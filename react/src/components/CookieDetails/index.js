@@ -1,8 +1,9 @@
-const CookieDetails = ({ cookie }) => {
+const CookieDetails = ({ cookie, analytics }) => {
   return Object.keys(cookie).length > 0 ? (
     <div className="p-12">
       <h1 className="text-2xl">{cookie.name}</h1>
       <p className="max-w-md break-words">{JSON.stringify(cookie)}</p>
+      <p className="max-w-md break-words">{JSON.stringify(analytics)}</p>
     </div>
   ) : (
     <div className="p-12 min-h-screen flex justify-center">
