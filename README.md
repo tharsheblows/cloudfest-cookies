@@ -75,4 +75,7 @@ npm run watch
 
 Afterwards add the `build` folder in your chrome extensions (after enabling developer mode).
 
+#### Wacky Hackathon things:
+In order to have the `storage/cookies.ts` available in the react-app we need to copy it in the `prebuild` of the react `package.json`.
+
 # Glossary
