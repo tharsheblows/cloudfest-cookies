@@ -70,8 +70,19 @@ function categorizeCookies(cookies, hostname) {
   return { firstParty, thirdParty };
 }
 
+async function deleteCookies() {
+  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  const response = await chrome.runtime.sendMessage({
+    tabId: tab.id,
+    action: 'deleteCookies',
+  });
+  // do something with response here, not outside the function
 
-document.getElementById("buttonsDelete").addEventListener("click", deleteFirstOne);
+  return 'cookies deleted maybe, you shoud check';
+}
+
+
+document.getElementById("buttonsDelete").addEventListener("click", deleteCookies);
 document.getElementById("buttonsAdd").addEventListener("click", addFirstOne);
 document.getElementById("sendForCookies").addEventListener('click', displayCookies);
 document.getElementById("buttonsPrintAll").addEventListener("click", printAll);
