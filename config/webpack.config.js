@@ -1,7 +1,6 @@
 'use strict';
 
 const { merge } = require('webpack-merge');
-const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
 const common = require('./webpack.common.js');
 const PATHS = require('./paths');
