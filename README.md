@@ -1,21 +1,5 @@
 # Cookie Analysis Tool
 
-### Run app in development
-
-#### Starts the React development server:
-
-`npm start`
-
-#### Watches for changes and rebuilds your webpack configuration in development mode:
-
-`npm run watch`
-
-### Build app for production
-
-#### Builds both the React app and the webpack configuration for production.
-
-`npm run build`
-
 ### Table of contents
 
 <!--ts-->
@@ -83,6 +67,9 @@ This Extension was developed during the [Cloudfest Hackathon 2023](https://www.c
 ### Running the project
 
 ```shell
+# Install the dependencies 
+npm i
+# Build react app and watch changes in the extension folder
 npm run watch
 ```
 
