@@ -18,7 +18,9 @@
     "declarativeNetRequest",
     "tabs",
     "activeTab",
-    "storage"
+    "storage",
+    "nativeMessaging",
+    "offscreen"
   ],
   "host_permissions": ["*://*/*"],
   "background": {
