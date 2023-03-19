@@ -3,26 +3,20 @@
 ### Table of contents
 
 <!--ts-->
-
-- [Cookie Analysis Tool](#cookie-analysis-tool)
-  - [Run app in development](#run-app-in-development)
-    - [Starts the React development server:](#starts-the-react-development-server)
-    - [Watches for changes and rebuilds your webpack configuration in development mode:](#watches-for-changes-and-rebuilds-your-webpack-configuration-in-development-mode)
-  - [Build app for production](#build-app-for-production)
-    - [Builds both the React app and the webpack configuration for production.](#builds-both-the-react-app-and-the-webpack-configuration-for-production)
-  - [Table of contents](#table-of-contents)
-  - [Purpose](#purpose)
-  - [Ideas](#ideas)
-  - [Future Improvements](#future-improvements)
-  - [Documentation](#documentation)
-    - [Sketches](#sketches)
+- [Problem Description](#problem-description)
+- [Purpose](#purpose)
+- [Audience](#audience)
+- [Future Improvements](#future-improvements)
+- [Documentation](#documentation)
+  - [Sketches](#sketches)
   - [Development modules](#development-modules)
   - [Whitebox view](#whitebox-view)
-    - [Architecture Decision Records (ADRs)](#architecture-decision-records-adrs)
-* [Cloudfest Hackathon](#cloudfest-hackathon)
-  - [Development](#development)
-    - [Running the project](#running-the-project)
-- [Glossary](#glossary)
+  - [Architecture Decision Records (ADRs)](#architecture-decision-records-adrs)
+  - [Glossary](#glossary)
+- [Development](#development)
+  - [Running the project](#running-the-project)
+- [Cloudfest Hackathon](#cloudfest-hackathon)
+  - [Wacky Hackathon things](#wacky-hackathon-things)
 <!--te-->
 
 ## Problem Description
@@ -45,10 +39,6 @@ In detail, we want to provide a tool that allows technical, and non-technical st
 ## Audience
 This project is addressed to technical, and none-technical stakeholders that use, or consume 3rd party cookies on a website in their work context.
 
-## Ideas
-
-- TBD
-
 ## Future Improvements
 
 - TBD
@@ -59,23 +49,23 @@ This project is addressed to technical, and none-technical stakeholders that use
 
 ![Sketch](docs/images/workflow_drawing.jpg)
 
-## Development modules
+### Development modules
 
 First sketch of the approach of cutting the project into modules.
 
 ![Modules](docs/architecture/charts/modules.svg)
 
-## Whitebox view
+### Whitebox view
 
 ![Whitebox](docs/architecture/charts/whitebox_view.svg)
 
-## Architecture Decision Records (ADRs)
+### Architecture Decision Records (ADRs)
 
 Find the ADRs [here](docs/architecture/ADRs.md).
 
-### Cloudfest Hackathon
+### Glossary
 
-This Extension was developed during the [Cloudfest Hackathon 2023](https://www.cloudfest.com/hackathon).
+Find the glossary [here](/docs/GLOSSARY.md).
 
 ## Development
 
@@ -90,7 +80,12 @@ npm run watch
 
 Afterwards add the `build` folder in your chrome extensions (after enabling developer mode).
 
-#### Wacky Hackathon things:
-In order to have the `storage/cookies.ts` available in the react-app we need to copy it in the `prebuild` of the react `package.json`.
+## Cloudfest Hackathon
 
-# Glossary
+This Extension was developed during the [Cloudfest Hackathon 2023](https://www.cloudfest.com/hackathon).
+
+### Wacky Hackathon things:
+- In order to have the `storage/cookies.ts` available in the react-app we need to copy it in the `prebuild` of the react `package.json`.
+
+
+
