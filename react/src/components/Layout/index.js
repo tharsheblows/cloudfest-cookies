@@ -85,7 +85,17 @@ export default function Example() {
                 <ul
                   role="list"
                   className="divide-y divide-gray-200 border-b border-gray-200"
-                ></ul>
+                >
+                  {cookieData.map((cookie) => (
+                    <li key={cookie.id}>
+                      <CookiePreview
+                        cookie={cookie}
+                        isActive={cookie.id === currentCookie.id}
+                        onClick={() => setCurrentCookie(cookie)}
+                      />
+                    </li>
+                  ))}
+                </ul>
               </div>
             </aside>
             <main className="relative z-0 flex-1 overflow-y-auto focus:outline-none">
