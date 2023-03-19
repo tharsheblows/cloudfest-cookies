@@ -1,7 +1,7 @@
 import cookie from 'simple-cookie';
 import type { Cookie } from 'simple-cookie';
 
-let _store: { [tabId: string]: { cookies: Cookie[]; url: URL | undefined } } =
+let _store: { [tabId: string]: typeof empty } =
   {};
 let _listeners: {
   [tabId: string]: {
@@ -12,13 +12,7 @@ let _listeners: {
   };
 } = {};
 
-/*
-type Cookie = {
-  [key: string]: string
-  url: string,
-  initiator: string | undefined
-}
-*/
+const empty: { cookies: Cookie[]; url: URL | undefined } = { cookies: [], url: undefined }
 
 type CookieStore = {
   addFromRequest: (tabId: number, request: Request) => void;
@@ -39,14 +33,14 @@ type Header = {
 
 const mkHeaderToCookie =
   (url: string, initiator: string | undefined) =>
-  (header: Header): Cookie | undefined => {
-    // console.log(`${header.name}: ${header.value}`)
-    if (!header.value || header.name.toLowerCase() !== 'set-cookie') {
-      return;
-    }
-    const c = cookie.parse(header.value);
-    return c;
-  };
+    (header: Header): Cookie | undefined => {
+      // console.log(`${header.name}: ${header.value}`)
+      if (!header.value || header.name.toLowerCase() !== 'set-cookie') {
+        return;
+      }
+      const c = cookie.parse(header.value);
+      return c;
+    };
 
 export const cookies: CookieStore = {
   async addFromRequest(tabId: number, { headers, initiator, url }) {
@@ -93,7 +87,7 @@ export const cookies: CookieStore = {
     },
     getSnapshot() {
       // IMPORTANT: identity must change iff value has changed
-      return _store[tabId] || { cookies: [], url: undefined };
+      return _store[tabId] || empty;
     },
   }),
 };
