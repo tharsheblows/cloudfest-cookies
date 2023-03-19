@@ -4,7 +4,7 @@
   "description": "My Chrome Extension",
   "private": true,
   "scripts": {
-    "watch": "npm run build --w react && cp -r react/build/ build && webpack --mode=development --watch --config config/webpack.config.js",
+    "watch": "npm run build --w react && cp -r react/build/ build && webpack --mode=development --watch --config config/webpack.config.js"
   },
   "workspaces": [
     "react"
