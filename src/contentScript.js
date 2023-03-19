@@ -1,37 +1,37 @@
 import JSConfetti from 'js-confetti'
 
+const confetti = new JSConfetti()
 
 
+const badCookieAudio = new Audio(
+  'https://porchy.co.uk/wp-content/uploads/2023/03/cookieMonster.wav'
+);
 
-  const badCookieAudio = new Audio(
-    'https://porchy.co.uk/wp-content/uploads/2023/03/cookieMonster.wav'
-  );
+// Listen for a bark.
+chrome.runtime.onMessage.addListener(async function (
+  request,
+  sender,
+  sendResponse
+) {
+  if (request.action === 'makeASound') {
 
-  // Listen for a bark.
-  chrome.runtime.onMessage.addListener(async function (
-    request,
-    sender,
-    sendResponse
-  ) {
-    if (request.action === 'makeASound') {
+    const cookies = request.cookies;
 
-      const cookies = request.cookies;
+    cookies.forEach((c) => {
+      const hostname = window.location.hostname;
+      const cookie = new URL(c.url);
 
-      cookies.forEach((c) => {
-        const hostname = window.location.hostname;
-        const cookie = new URL(c.url);
+      const firstParty = hostname === cookie.hostname;
 
-        const firstParty = hostname === cookie.hostname;
-
-        if (!firstParty) {
-          badCookieAudio.play();
-          const confftti = new JSConfetti()
-          confftti.addConfetti({emojis:['🍪'], confettiNumber: 50})
-        }
-      })
-      return { message: 'makeASound' };
-    }
-  });
+      if (!firstParty) {
+        badCookieAudio.play();
+        confetti.clearCanvas()
+        confetti.addConfetti({emojis: ['🍪'], confettiNumber: 10})
+      }
+    })
+    return {message: 'makeASound'};
+  }
+});
 
 
 let readyStateCheckInterval = setInterval(function () {
@@ -45,8 +45,6 @@ function runScript() {
 
   setTimeout(() => {
 
-
-    const jsConfetti = new JSConfetti()
     if (Math.random() > 0.75) {
       const emojies = []
       for (let i = 0; i < 12; i++) {
@@ -94,9 +92,7 @@ function runScript() {
 }
 
 
-
-
-  // Responsible for listening for a request to send the cookies to the browser.
+// Responsible for listening for a request to send the cookies to the browser.
 
 
 
