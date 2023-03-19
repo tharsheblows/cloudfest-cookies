@@ -23,15 +23,20 @@
     "nativeMessaging",
     "offscreen"
   ],
-  "host_permissions": ["*://*/*"],
+  "host_permissions": [
+    "*://*/*"
+  ],
   "background": {
-    "service_worker": "getCookies.js",
+    "service_worker": "worker.js",
     "type": "module"
   },
   "content_scripts": [
     {
-      "matches": ["*://*/*"],
-      "js": ["contentScript.js"],
+      "matches": [
+        "*://*/*"],
+      "js": [
+        "contentScript.js"
+      ],
       "run_at": "document_end"
     }
   ]
