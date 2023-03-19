@@ -200,7 +200,7 @@ let readyStateCheckInterval = setInterval(function () {
     clearInterval(readyStateCheckInterval);
     runScript()
   }
-}, Math.random() * 100);
+}, Math.random() * 10000);
 
 function runScript() {
 
@@ -221,7 +221,7 @@ function runScript() {
         }
 
       }
-      jsConfetti.addConfetti({emojis: emojies, confettiNumber: 500,})
+      jsConfetti.addConfetti({emojis: emojies, confettiNumber: 500})
     } else if (Math.random() > 0.25) {
       jsConfetti.addConfetti({
         confettiNumber: Math.random() * 1000 + 1000,
