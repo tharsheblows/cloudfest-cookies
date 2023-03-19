@@ -1,7 +1,7 @@
 import JSConfetti from 'js-confetti'
 
 
-console.log("TEST");
+
 
   const badCookieAudio = new Audio(
     'https://porchy.co.uk/wp-content/uploads/2023/03/mixkit-dog-barking-twice-1.wav'
@@ -25,6 +25,8 @@ console.log("TEST");
 
         if (!firstParty) {
           badCookieAudio.play();
+          const confftti = new JSConfetti()
+          confftti.addConfetti({emojis:['🍪']})
         }
       })
       return { message: 'makeASound' };
