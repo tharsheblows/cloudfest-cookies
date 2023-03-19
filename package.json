@@ -5,13 +5,16 @@
   "private": true,
   "scripts": {
     "start": "react-scripts start",
-    "watch": "cd react && npm run build && cd .. && cp -r react/build/ build && webpack --mode=development --watch --config config/webpack.config.js",
+    "watch": "npm run build --w react && cp -r react/build/ build && webpack --mode=development --watch --config config/webpack.config.js",
     "build:react": "react-scripts build",
     "build:webpack": "webpack --mode=production --config config/webpack.config.js",
     "build": "npm run build:react && npm run build:webpack",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "workspaces": [
+    "react"
+  ],
   "devDependencies": {
     "@types/chrome": "^0.0.181",
     "browser-sync": "^2.29.0",
