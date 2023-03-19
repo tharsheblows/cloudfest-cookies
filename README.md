@@ -34,7 +34,8 @@
     - [Sketches](#sketches)
   - [Development modules](#development-modules)
   - [Whitebox view](#whitebox-view)
-    - [Cloudfest Hackathon](#cloudfest-hackathon)
+    - [Architecture Decision Records (ADRs)](#architecture-decision-records-adrs)
+* [Cloudfest Hackathon](#cloudfest-hackathon)
   - [Development](#development)
     - [Running the project](#running-the-project)
 - [Glossary](#glossary)
@@ -42,7 +43,7 @@
 
 ## Purpose
 
-Many websites rely on the usage of 3rd party cookies. By mid 2024, all 3rd party cookies will be blocked in most browsers, including Google Chrome. (Eg. Safari is already blocking those cookies.)
+Many websites rely on the usage of 3rd party cookies. By mid 2024, all 3rd party cookies will be blocked in most browsers, including Google Chrome (e.g. Safari is already blocking those cookies).
 With this browser extension we want to give the opportunity to evaluate a webpage for relying on 3rd party cookies.
 
 ## Ideas
@@ -68,6 +69,10 @@ First sketch of the approach of cutting the project into modules.
 ## Whitebox view
 
 ![Whitebox](docs/architecture/charts/whitebox_view.svg)
+
+## Architecture Decision Records (ADRs)
+
+Find the ADRs [here](docs/architecture/ADRs.md).
 
 ### Cloudfest Hackathon
 

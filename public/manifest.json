@@ -6,16 +6,24 @@
   "devtools_page": "devtools/page.html",
   "action": {
     "default_icon": "icons/take-a-bite.png",
-    "default_title": "Cloudfest Cookies"
+    "default_title": "Cloudfest Cookies",
+    "default_popup": "index.html"
   },
   "permissions": [
     "contextMenus",
     "cookies",
     "history",
     "webRequest",
-    "declarativeNetRequest"
+    "declarativeNetRequest",
+    "tabs",
+    "activeTab",
+    "storage"
   ],
   "host_permissions": ["*://*/*"],
+  "background": {
+    "service_worker": "getCookies.js",
+    "type": "module"
+  },
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
