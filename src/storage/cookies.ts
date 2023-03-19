@@ -1,5 +1,5 @@
 let _cookies: Cookie[] = [];
-let _url: URL;
+let _url: URL | undefined;
 let _listeners: (() => void)[] = [];
 
 type Cookie = {}
@@ -35,7 +35,7 @@ export const cookies: CookieStore = {
     const response = await chrome.runtime.sendMessage({ tabId: tab.id, action: 'getCookies' });
     // do something with response here, not outside the function
     const cookies = (response as any).cookies;
-    _url = new URL(tab.url);
+    _url = tab.url ? new URL(tab.url) : undefined;
     _cookies = cookies;
     emitChange();
   }
