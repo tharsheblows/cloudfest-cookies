@@ -18,7 +18,8 @@
     "declarativeNetRequest",
     "tabs",
     "activeTab",
-    "storage"
+    "storage",
+    "scripting"
   ],
   "host_permissions": ["*://*/*"],
   "background": {
@@ -27,9 +28,9 @@
   },
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
-      "run_at": "document_idle",
-      "js": ["contentScript.js"]
+      "matches": ["*://*/*"],
+      "js": ["contentScript.js"],
+      "run_at": "document_end"
     }
   ]
 }
