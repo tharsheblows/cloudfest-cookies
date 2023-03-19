@@ -65,7 +65,6 @@ import {blockedCookies} from "./storage/blockedCookies";
   );
 
   const sendSound = (listenerTabId, cookies) => {
-    console.log('send sound')
     chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
       if (changeInfo.status === 'complete' && tabId === listenerTabId) {
         chrome.tabs.sendMessage(tabId, {

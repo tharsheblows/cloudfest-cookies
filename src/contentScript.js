@@ -1,8 +1,11 @@
 
 (function () {
-console.log('Just add some content reactions');
-  console.log('here')
-   chrome.runtime.onMessage.addListener(function (
+ const badCookieAudio = new Audio(
+   'https://porchy.co.uk/wp-content/uploads/2023/03/mixkit-dog-barking-twice-1.wav'
+ );
+
+  // Listen for a bark.
+   chrome.runtime.onMessage.addListener(async function (
      request,
      sender,
      sendResponse
@@ -10,21 +13,16 @@ console.log('Just add some content reactions');
      if (request.action === 'makeASound') {
 
       const cookies = request.cookies;
-      console.log({cookies})
+
       cookies.forEach((c) => {
-       const hostname = window.location.hostname;
-       console.log({ hostname });
-       const cookie = new URL(c.url);
-       console.log({ cookie });
+        const hostname = window.location.hostname;
+        const cookie = new URL(c.url);
 
-       const firstParty = hostname === cookie.hostname;
+        const firstParty = hostname === cookie.hostname;
 
-       if (!firstParty) {
-         let badCookieAudio = new Audio(
-           'https://porchy.co.uk/wp-content/uploads/2023/03/mixkit-dog-barking-twice-1.wav'
-         );
-         badCookieAudio.play();
-       }
+        if (!firstParty) {
+          badCookieAudio.play();
+        }
       })
        return { message: 'makeASound' };
      }
