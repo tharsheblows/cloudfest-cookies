@@ -1,9 +1,6 @@
 import cookie from 'cookie';
 import deleteAllCookies from './deleteAllCookies'
 
-
-
-
 (function () {
   const tabStorage = {};
   const networkFilters = {

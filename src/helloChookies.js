@@ -1,3 +1,4 @@
+import {loadCookiesStore} from "./storage/cookiesMockup";
 
 let cookies;
 let deletedCookie = "EMTY";
@@ -20,6 +21,9 @@ async function sendForCookies() {
 
 async function displayCookies() {
   const { cookies, hostname } = await sendForCookies();
+
+  loadCookiesStore(cookies)
+
   const container = document.getElementById("cookieList");
   container.innerHTML = "";
 
