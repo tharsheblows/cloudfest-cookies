@@ -14,11 +14,18 @@
     "cookies",
     "history",
     "webRequest",
-    "declarativeNetRequest"
+    "declarativeNetRequest",
+    "tabs",
+    "activeTab",
+    "storage"
   ],
   "host_permissions": [
     "*://*/*"
   ],
+  "background": {
+    "service_worker": "getCookies.js",
+    "type": "module"
+  },
   "content_scripts": [
     {
       "matches": [
