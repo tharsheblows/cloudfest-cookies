@@ -27,7 +27,8 @@ import deleteAllCookies from './deleteAllCookies'
     sendResponse
   ) {
     if (request.action === 'deleteCookies'){
-      deleteAllCookies()
+      tabStorage[request.tabId].cookies = [];
+      deleteAllCookies();
     };
   });
 
