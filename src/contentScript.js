@@ -1,6 +1,6 @@
 import JSConfetti from 'js-confetti'
 
-const confetti = new JSConfetti()
+const jsConfetti = new JSConfetti()
 
 
 const badCookieAudio = new Audio(
@@ -25,8 +25,8 @@ chrome.runtime.onMessage.addListener(async function (
 
       if (!firstParty) {
         badCookieAudio.play();
-        confetti.clearCanvas()
-        confetti.addConfetti({emojis: ['🍪'], confettiNumber: 10})
+        jsConfetti.clearCanvas()
+        jsConfetti.addConfetti({emojis: ['🍪'], confettiNumber: 10})
       }
     })
     return {message: 'makeASound'};
