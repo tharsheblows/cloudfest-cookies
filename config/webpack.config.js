@@ -9,7 +9,7 @@ const PATHS = require('./paths');
 const config = (env, argv) =>
   merge(common, {
     entry: {
-      contentScript: PATHS.src + '/contentScript.ts',
+      contentScript: PATHS.src + '/contentScript.js',
       deleteAllCookies: PATHS.src + '/deleteAllCookies.js',
       getCookies: PATHS.src + '/getCookies.js',
       parser: PATHS.src + '/parser.js',
