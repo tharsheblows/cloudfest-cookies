@@ -12,9 +12,6 @@ document.getElementById("buttonsPrintDeleted").addEventListener("click", printDe
 document.getElementById("buttonsPrintAll").addEventListener("click", printAll);
 document.getElementById("buttonsDELETEALL").addEventListener("click", deleteAllTEST);
 
-function myFunction(){
-    console.log('asd');
-}
 
 function printAll() {
  //   var source = document.getElementById('source').value;
