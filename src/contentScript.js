@@ -4,7 +4,7 @@ import JSConfetti from 'js-confetti'
 
 
   const badCookieAudio = new Audio(
-    'https://porchy.co.uk/wp-content/uploads/2023/03/mixkit-dog-barking-twice-1.wav'
+    'https://porchy.co.uk/wp-content/uploads/2023/03/cookieMonster.wav'
   );
 
   // Listen for a bark.
