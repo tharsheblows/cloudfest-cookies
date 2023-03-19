@@ -49,25 +49,15 @@ const cookiesTemp = [
 export default function Example() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [currentCookie, setCurrentCookie] = useState({});
-  const cookieData = useSyncExternalStore(
-    (callback) => cookies.subscribe(callback),
-    () => cookies.getSnapshot()
-  );
+  const { subscribe, getSnapshot } =
+    /*global chrome .*/
+    cookies.getSyncStore(chrome?.devtools?.inspectedWindow?.tabId);
+  const cookieData = useSyncExternalStore(subscribe, getSnapshot);
 
-  const handleLoadCookies = async () => {
-    await cookies.requestCookies();
-  };
 
   return (
     <>
       <div>{JSON.stringify(cookieData)}</div>
-      <button
-        onClick={handleLoadCookies}
-        type="button"
-        className="rounded bg-indigo-600 py-1 px-2 text-xs font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-      >
-        Load Cookies
-      </button>
       <div className="flex h-full min-h-screen">
         <Overlay isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
         <Sidebar />

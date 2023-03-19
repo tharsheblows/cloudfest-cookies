@@ -1,7 +1,12 @@
 import cookie from 'cookie';
 
-let _listeners: { [tabId: number]: (() => void)[] } = {};
 let _store: { [tabId: string]: { cookies: Cookie[], url: URL | undefined } } = {}
+let _listeners: {
+  [tabId: string]: {
+    subscriber: (() => void)[],
+    listener: (change: { [name: string]: chrome.storage.StorageChange; }) => void | undefined
+  }
+} = {}
 
 type Cookie = {
   [key: string]: string
@@ -40,30 +45,40 @@ const mkHeaderToCookie = (
 
   }
 
-chrome.storage.onChanged.addListener((changes) => {
-  Object.keys(changes).forEach(tabId => { _store[tabId] = changes[tabId].newValue })
-  console.log("changed", _store)
-})
-
 export const cookies: CookieStore = {
   async addFromRequest(tabId: number, { headers, initiator, url }) {
     const newCookies = headers.map(mkHeaderToCookie(url, initiator))
       .filter((x: Cookie | undefined) => x)
-    const _store = await chrome.storage.local.get(tabId + '')
-    if (!_store[tabId]) { _store[tabId] = { cookies: [], url: undefined } }
-    _store[tabId] = {
-      ..._store[tabId]
-      , cookies: [..._store[tabId].cookies, ...newCookies]
+    const storage = await chrome.storage.local.get(tabId + '')
+    if (!storage[tabId]) { storage[tabId] = { cookies: [], url: undefined } }
+    storage[tabId] = {
+      ...storage[tabId]
+      , cookies: [...storage[tabId].cookies, ...newCookies]
     }
-    await chrome.storage.local.set(_store)
+    await chrome.storage.local.set(storage)
   },
   getSyncStore: (tabId: number) => ({
     subscribe(listener) {
-      const _listener = (changes: chrome.storage.StorageChange) => {
-        if (Object.keys(changes).includes(tabId + '')) { listener() }
+      const tab = `${tabId}`
+      _listeners[tab] = _listeners[tab] || { subscriber: [], listener: undefined };
+      if (!_listeners[tab].listener) {
+        _listeners[tab].listener = (changes) => {
+          if (Object.keys(changes).includes(tab)) {
+            _store[tab] = changes[tab].newValue
+            _listeners[tab].subscriber.forEach(l => l())
+          }
+          console.log("changed", _store)
+        }
+        chrome.storage.onChanged.addListener(_listeners[tab].listener)
       }
-      chrome.storage.onChanged.addListener(_listener)
-      return () => chrome.storage.onChanged.removeListener(_listener)
+      _listeners[tab].subscriber.push(listener)
+      return () => {
+        _listeners[tab].subscriber = _listeners[tab].subscriber.filter(l => l !== listener)
+        if (_listeners[tab].subscriber.length === 0) {
+          chrome.storage.onChanged.removeListener(_listeners[tab].listener)
+          _listeners[tab].listener = undefined
+        }
+      }
     },
     getSnapshot() {
       // IMPORTANT: identity must change iff value has changed
