@@ -1,6 +1,5 @@
-let _cookies: Cookie[] = [];
-let _url: URL | undefined;
 let _listeners: (() => void)[] = [];
+let _store: { cookies: Cookie[], url: URL | undefined } = { cookies: [], url: undefined }
 
 type Cookie = {}
 type CookieStore = {
@@ -18,25 +17,26 @@ function emitChange() {
 
 export const cookies: CookieStore = {
   addCookie(cookie: Cookie) {
-    _cookies = _cookies.concat([cookie])
+    _store = { ..._store, cookies: [..._store.cookies, cookie] }
     emitChange()
   },
   subscribe(listener) {
-    _listeners = _listeners.concat([listener]);
+    _listeners = [..._listeners, listener];
     return () => {
-      _listeners = _listeners.filter(x => x === listener);
+      _listeners = _listeners.filter(x => x !== listener);
     };
   },
   getSnapshot() {
-    return { cookies: _cookies.slice(), url: _url };
+    // IMPORTANT: identity must change iff value has changed
+    return _store;
   },
   async requestCookies() {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     const response = await chrome.runtime.sendMessage({ tabId: tab.id, action: 'getCookies' });
     // do something with response here, not outside the function
     const cookies = response.cookies;
-    _url = tab.url ? new URL(tab.url) : undefined;
-    _cookies = cookies;
+    const url = tab.url ? new URL(tab.url) : undefined;
+    _store = { url, cookies }
     emitChange();
   }
 };

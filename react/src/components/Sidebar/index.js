@@ -1,50 +1,64 @@
-import React, { useState } from 'react';
-import { MenuIcon, XIcon } from '@heroicons/react/solid';
+import {
+  AdjustmentsHorizontalIcon,
+  CakeIcon,
+  HomeIcon,
+} from '@heroicons/react/24/solid';
+import logo from '../../images/take-a-bite-green.svg';
 
-const navItems = [
-  { name: 'Overview', href: '#' },
-  { name: '1st Party', href: '#' },
-  { name: '3rd Party', href: '#' },
-  { name: 'Settings', href: '#' },
+const navigation = [
+  { name: 'Dashboard', href: '#', icon: HomeIcon, current: false },
+  { name: 'Cookie Cake', href: '#', icon: CakeIcon, current: true },
+  {
+    name: 'Settings',
+    href: '#',
+    icon: AdjustmentsHorizontalIcon,
+    current: false,
+  },
 ];
 
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ');
+}
+
 const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
-  };
-
   return (
-    <div className="h-screen bg-gray-100">
-      <div className="md:hidden p-4">
-        <button onClick={toggleSidebar}>
-          <MenuIcon className="h-6 w-6 text-gray-700" />
-        </button>
-      </div>
-      <aside
-        className={`transform top-0 left-0 w-64 bg-white fixed h-full overflow-auto ease-in-out transition-all duration-300 z-30 ${
-          isOpen ? 'translate-x-0' : '-translate-x-full'
-        } md:translate-x-0`}
-      >
-        <div className="md:hidden p-4">
-          <button onClick={toggleSidebar}>
-            <XIcon className="h-6 w-6 text-gray-700" />
-          </button>
+    <div className="hidden lg:flex lg:flex-shrink-0">
+      <div className="flex w-64 flex-col">
+        <div className="flex min-h-0 flex-1 flex-col border-r border-gray-200 bg-gray-100">
+          <div className="flex flex-1 flex-col overflow-y-auto pt-5 pb-4">
+            <div className="flex flex-shrink-0 items-center px-4">
+              <img className="h-8 w-auto" src={logo} />
+            </div>
+            <nav className="mt-5 flex-1" aria-label="Sidebar">
+              <div className="space-y-1 px-2">
+                {navigation.map((item) => (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    className={classNames(
+                      item.current
+                        ? 'bg-gray-200 text-gray-900'
+                        : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+                      'group flex items-center rounded-md px-2 py-2 text-sm font-medium'
+                    )}
+                  >
+                    <item.icon
+                      className={classNames(
+                        item.current
+                          ? 'text-gray-500'
+                          : 'text-gray-400 group-hover:text-gray-500',
+                        'mr-3 h-6 w-6'
+                      )}
+                      aria-hidden="true"
+                    />
+                    {item.name}
+                  </a>
+                ))}
+              </div>
+            </nav>
+          </div>
         </div>
-        <nav>
-          {navItems.map((item, index) => (
-            <a
-              key={index}
-              href={item.href}
-              className="block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-500 hover:text-white"
-            >
-              {item.name}
-            </a>
-          ))}
-        </nav>
-      </aside>
-      <main className="p-4 md:ml-64">{/* Your main content goes here */}</main>
+      </div>
     </div>
   );
 };
