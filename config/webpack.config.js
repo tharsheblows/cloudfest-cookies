@@ -1,7 +1,6 @@
 'use strict';
 
 const { merge } = require('webpack-merge');
-const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
 const common = require('./webpack.common.js');
 const PATHS = require('./paths');
@@ -10,7 +9,7 @@ const PATHS = require('./paths');
 const config = (env, argv) =>
   merge(common, {
     entry: {
-      contentScript: PATHS.src + '/contentScript.ts',
+      contentScript: PATHS.src + '/contentScript.js',
       deleteAllCookies: PATHS.src + '/deleteAllCookies.js',
       getCookies: PATHS.src + '/getCookies.js',
       parser: PATHS.src + '/parser.js',
