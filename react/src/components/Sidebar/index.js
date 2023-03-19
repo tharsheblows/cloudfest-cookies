@@ -51,7 +51,7 @@ const Sidebar = () => {
                       )}
                       aria-hidden="true"
                     />
-                    {item.name} side
+                    {item.name}
                   </a>
                 ))}
               </div>
