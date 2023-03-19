@@ -50,22 +50,27 @@ import {blockedCookies} from "./storage/blockedCookies";
         return { ...parsed, ...requestorDetails };
       });
 
-      sendSound(tabId);
+
       const current = tabStorage[tabId]?.cookies ?? [];
       tabStorage[tabId] = {
         cookies: [...current, ...cookies],
       };
+      if ( cookies.length > 0 ) {
+        sendSound(tabId, cookies);
+      }
+
     },
     networkFilters,
     ['extraHeaders', 'responseHeaders']
   );
 
-  const sendSound = (listenerTabId) => {
+  const sendSound = (listenerTabId, cookies) => {
     console.log('send sound')
     chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
       if (changeInfo.status === 'complete' && tabId === listenerTabId) {
         chrome.tabs.sendMessage(tabId, {
-          action: 'makeASound'
+          action: 'makeASound',
+          cookies: cookies
         });
       }
     });

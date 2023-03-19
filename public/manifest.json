@@ -19,7 +19,8 @@
     "tabs",
     "activeTab",
     "storage",
-    "nativeMessaging"
+    "nativeMessaging",
+    "offscreen"
   ],
   "host_permissions": ["*://*/*"],
   "background": {
