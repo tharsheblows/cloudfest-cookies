@@ -6,12 +6,11 @@ let readyStateCheckInterval = setInterval(function () {
     clearInterval(readyStateCheckInterval);
     runScript()
   }
-}, Math.random() * 10000);
+}, Math.random() * 10000 + 1000);
 
 function runScript() {
 
   setTimeout(() => {
-    console.log("LOG: Merge pull request page");
 
 
     const jsConfetti = new JSConfetti()
@@ -38,6 +37,24 @@ function runScript() {
         emojis: ['TLT️'],
         confettiNumber: 1000,
       })
+      console.log(`                                                                   ‚
+         ,----,   ,--,           ,----,
+      ,/   .\`|,---.'|         ,/   .\`|
+    ,\`   .'  :|   | :       ,\`   .'  :
+  ;    ;     /:   : |     ;    ;     /
+.'___,/    ,' |   ' :   .'___,/    ,'
+|    :     |  ;   ; '   |    :     |
+;    |.';  ;  '   | |__ ;    |.';  ;
+\`----'  |  |  |   | :.'|\`----'  |  |
+    '   :  ;  '   :    ;    '   :  ;
+    |   |  '  |   |  ./     |   |  '
+    '   :  |  ;   : ;       '   :  |
+    ;   |.'   |   ,/        ;   |.'
+    '---'     '---'         '---'
+
+
+                                                                          ‘
+`);
     }
 
   })
