@@ -24,3 +24,4 @@ yarn-error.log*
 
 # we copy this file in order to import it
 src/cookies.ts
+src/types.d.ts

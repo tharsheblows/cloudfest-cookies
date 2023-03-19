@@ -10,7 +10,6 @@ const PATHS = require('./paths');
 const config = (env, argv) =>
   merge(common, {
     entry: {
-      app: '.react/src/index.js',
       contentScript: PATHS.src + '/contentScript.ts',
       deleteAllCookies: PATHS.src + '/deleteAllCookies.js',
       getCookies: PATHS.src + '/getCookies.js',
