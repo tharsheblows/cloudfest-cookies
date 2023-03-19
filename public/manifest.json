@@ -21,7 +21,8 @@
     "storage",
     "scripting",
     "nativeMessaging",
-    "offscreen"
+    "offscreen",
+    "webNavigation"
   ],
   "host_permissions": [
     "*://*/*"
@@ -33,7 +34,8 @@
   "content_scripts": [
     {
       "matches": [
-        "*://*/*"],
+        "*://*/*"
+      ],
       "js": [
         "contentScript.js"
       ],

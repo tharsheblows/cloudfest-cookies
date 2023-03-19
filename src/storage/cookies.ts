@@ -1,9 +1,10 @@
 import cookie from 'simple-cookie';
-import type { Cookie } from 'simple-cookie';
+import type { Cookie as ParsedCookie } from 'simple-cookie';
 import { cookieInfoHashMap } from './analyticsCookies';
 //import CookieDetails from '../../react/src/components/CookieDetails/index';
 
-let _store: { [tabId: string]: typeof empty } = {};
+let _store: { [tabId: string]: StorageValue } =
+  {};
 let _listeners: {
   [tabId: string]: {
     subscriber: (() => void)[];
@@ -13,13 +14,20 @@ let _listeners: {
   };
 } = {};
 
-const empty: { cookies: Cookie[]; url: URL | undefined } = {
-  cookies: [],
-  url: undefined,
-};
+const empty: StorageValue = { cookies: [], url: undefined }
+
+
+type Cookie = {
+  cookie: ParsedCookie,
+  analytics: CookieAnalytics | undefined, origin: string, toplevel: string
+}
+type StorageValue = {
+  cookies: Cookie[]; url: URL | undefined
+}
 
 type CookieStore = {
   addFromRequest: (tabId: number, request: Request) => void;
+  updateTabLocation: (tabId: number, url: URL) => void;
   getSyncStore: (tabId: number) => {
     getSnapshot: () => { cookies: Cookie[]; url: URL };
     subscribe: (listener: () => void) => () => void;
@@ -53,9 +61,9 @@ type CookieAnalytics = {
 function getJsonAttributeIgnoreCase(json: JSON, attrName: string) {
   return json.hasOwnProperty(attrName)
     ? //@ts-ignore
-      json[attrName]
+    json[attrName]
     : //@ts-ignore
-      json[attrName.toLowerCase()];
+    json[attrName.toLowerCase()];
 }
 
 function jsonToCookieAnalytics(cookieAnalyticsJson: JSON) {
@@ -84,50 +92,57 @@ function jsonToCookieAnalytics(cookieAnalyticsJson: JSON) {
 
 const mkHeaderToCookie =
   (url: string, top: string | undefined) =>
-  (
-    header: Header
-  ):
-    | {
-        cookie: Cookie;
-        analytics: CookieAnalytics;
-        origin: string;
-        toplevel: string;
+    (
+      header: Header
+    ):
+      Cookie | undefined => {
+      // console.log(`${header.name}: ${header.value}`)
+      if (!header.value || header.name.toLowerCase() !== 'set-cookie') {
+        return;
       }
-    | undefined => {
-    // console.log(`${header.name}: ${header.value}`)
-    if (!header.value || header.name.toLowerCase() !== 'set-cookie') {
-      return;
-    }
-    const c = cookie.parse(header.value);
+      const c = cookie.parse(header.value);
 
-    let analytics;
-    if (cookieInfoHashMap.hasOwnProperty(c.name)) {
-      // @ts-ignore
-      let analyticsFromCsvJSON = cookieInfoHashMap[c.name][0];
-      analytics = jsonToCookieAnalytics(analyticsFromCsvJSON);
+      let analytics: CookieAnalytics | undefined;
+      if (cookieInfoHashMap.hasOwnProperty(c.name)) {
+        // @ts-ignore
+        let analyticsFromCsvJSON = cookieInfoHashMap[c.name][0];
+        analytics = jsonToCookieAnalytics(analyticsFromCsvJSON);
+      }
+      let origin = new URL(url).origin;
+      let toplevel = new URL(top).origin;
+      return { cookie: c, analytics, origin, toplevel };
+    };
+
+// This should be a transaction. Currently it has very likely a race condition.
+const updateStorage: <A>(
+  key: string,
+  def: A,
+  step: ((val: A) => A)) => Promise<void> = async (key, def, step) => {
+    const storage = await chrome.storage.local.get(key);
+    if (!storage[key]) {
+      storage[key] = def;
     }
-    let origin = new URL(url).origin;
-    let toplevel = new URL(top).origin;
-    return { cookie: c, analytics, origin, toplevel };
-  };
+    storage[key] = step(storage[key])
+    await chrome.storage.local.set(storage);
+  }
 
 export const cookies: CookieStore = {
-  async addFromRequest(tabId: number, { headers, initiator, url }) {
+  async addFromRequest(tabId: number, { headers, url }) {
     const tab = await chrome.tabs.get(tabId);
     const newCookies = headers
       .map(mkHeaderToCookie(url, tab.url))
       .filter(
-        (x: { cookie: Cookie; analytics: CookieAnalytics } | undefined) => x
+        (x: Cookie | undefined) => !!x
       );
-    const storage = await chrome.storage.local.get(tabId + '');
-    if (!storage[tabId]) {
-      storage[tabId] = { cookies: [], url: undefined };
-    }
-    storage[tabId] = {
-      ...storage[tabId],
-      cookies: [...storage[tabId].cookies, ...newCookies],
-    };
-    await chrome.storage.local.set(storage);
+    await updateStorage(tabId + '', empty, (x: StorageValue) => ({
+      ...x, cookies: [...x.cookies, ...newCookies]
+    }))
+  },
+  async updateTabLocation(tabId: number, url) {
+    // console.log("new url", tabId, url)
+    await updateStorage(tabId + '', empty, (x: StorageValue) => ({
+      ...x, cookies: [], url
+    }))
   },
   getSyncStore: (tabId: number) => ({
     subscribe(listener) {
@@ -142,7 +157,6 @@ export const cookies: CookieStore = {
             _store[tab] = changes[tab].newValue;
             _listeners[tab].subscriber.forEach((l) => l());
           }
-          console.log('changed', _store);
         };
         chrome.storage.onChanged.addListener(_listeners[tab].listener);
       }

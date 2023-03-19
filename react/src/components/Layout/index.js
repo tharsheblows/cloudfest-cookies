@@ -48,10 +48,7 @@ const cookiesTemp = [
 
 export default function Example() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [currentCookie, setCurrentCookie] = useState({
-    cookie: {},
-    analytics: {},
-  });
+  const [currentCookie, setCurrentCookie] = useState(undefined);
   const { subscribe, getSnapshot } =
     /*global chrome .*/
     cookies.getSyncStore(chrome?.devtools?.inspectedWindow?.tabId);
@@ -89,19 +86,19 @@ export default function Example() {
                   className="divide-y divide-gray-200 border-b border-gray-200"
                 >
                   {cookieData.cookies.map(
-                    ({ cookie, analytics, origin, toplevel }) => {
+                    ({ cookie, analytics, origin, toplevel }, idx) => {
                       console.log({ cookie });
                       console.log({ analytics });
                       console.log({ origin });
                       console.log({ toplevel });
                       return (
-                        <li key={cookie.name}>
+                        <li key={idx}>
                           <CookiePreview
                             cookie={cookie}
                             analytics={analytics}
                             origin={origin}
                             toplevel={toplevel}
-                            isActive={cookie.name === currentCookie.cookie.name}
+                            isActive={currentCookie && cookie.name === currentCookie.cookie.name}
                             onClick={() =>
                               setCurrentCookie({ cookie, analytics })
                             }
@@ -114,10 +111,11 @@ export default function Example() {
               </div>
             </aside>
             <main className="relative z-0 flex-1 overflow-y-auto focus:outline-none">
-              <CookieDetails
+              {currentCookie ? <CookieDetails
                 cookie={currentCookie.cookie}
                 analytics={currentCookie.analytics}
-              />
+              /> : []}
+
             </main>
           </div>
         </div>

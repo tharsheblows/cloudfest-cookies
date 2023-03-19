@@ -1,5 +1,3 @@
-console.log(chrome.devtools)
-
 chrome.devtools.panels.create(
   "Cloudfest Cookies",
   "hello.png",

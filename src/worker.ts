@@ -1,20 +1,25 @@
-import {cookies} from "./storage/cookies";
+import { cookies } from "./storage/cookies";
 
 
 import cookie from 'cookie';
 // @ts-ignore
 import * as deleteAllCookies from './deleteAllCookies'
 
-import {blockedCookies} from "./storage/blockedCookies";
+import { blockedCookies } from "./storage/blockedCookies";
 
 chrome.webRequest.onResponseStarted.addListener(
-  (details) => {
-    const {tabId, initiator, url} = details;
+  details => {
+    const { tabId, initiator, url } = details;
     const headers = details.responseHeaders
-    cookies.addFromRequest(tabId, {initiator, url, headers})
-  }, {urls: ['*://*/*']}, ['extraHeaders', 'responseHeaders']
+    cookies.addFromRequest(tabId, { initiator, url, headers })
+  }, { urls: ['*://*/*'] }, ['extraHeaders', 'responseHeaders']
 );
 
+chrome.webNavigation.onBeforeNavigate.addListener((details) => {
+  const { tabId, url, frameType } = details;
+  url && frameType === "outermost_frame" &&
+    cookies.updateTabLocation(tabId, new URL(url))
+})
 
 const tabStorage = {};
 const networkFilters = {
@@ -28,7 +33,7 @@ chrome.runtime.onMessage.addListener((
   sendResponse
 ) => {
   if (request.action === 'getCookies') { // @ts-ignore
-    sendResponse({cookies: tabStorage[request.tabId].cookies});
+    sendResponse({ cookies: tabStorage[request.tabId].cookies });
   }
   return true;
 });
@@ -50,7 +55,7 @@ chrome.runtime.onMessage.addListener((
 
 chrome.webRequest.onResponseStarted.addListener(
   (details) => {
-    const {tabId, initiator, url} = details;
+    const { tabId, initiator, url } = details;
     const setCookie = details.responseHeaders.filter(
       (n) => n.name === 'set-cookie'
     );
@@ -62,7 +67,7 @@ chrome.webRequest.onResponseStarted.addListener(
         initiator,
         url,
       };
-      return {...parsed, ...requestorDetails};
+      return { ...parsed, ...requestorDetails };
     });
 
 
