@@ -1,6 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
-import { useCookies } from '../../useCookies';
-
+import { Fragment, useState, useSyncExternalStore } from 'react';
 import { cookies } from '../../cookies';
 import { Dialog, Menu, Transition } from '@headlessui/react';
 import {
@@ -46,13 +44,19 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
+
+
+
+
 export default function Example() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const cookieData = useCookies();
+  const cookieData = useSyncExternalStore(
+    (callback) => cookies.subscribe(callback)
+    , () => cookies.getSnapshot()
+  );
 
   const handleLoadCookies = async () => {
     await cookies.requestCookies();
-    console.log(cookieData);
   };
 
   return (
@@ -65,6 +69,7 @@ export default function Example() {
         <body class="h-full overflow-hidden">
         ```
       */}
+      <div>{JSON.stringify(cookieData)}</div>
       <div className="flex h-full min-h-screen">
         <Transition.Root show={sidebarOpen} as={Fragment}>
           <Dialog
