@@ -1,10 +1,10 @@
 {
-  "manifest_version": 3,
+  "manifest_version": 2,
   "name": "Cloudfest Cookies",
   "version": "0.1.0",
   "description": "My Chrome Extension",
   "devtools_page": "devtools/page.html",
-  "action": {
+  "browser_action": {
     "default_icon": "icons/take-a-bite.png",
     "default_title": "Cloudfest Cookies",
     "default_popup": "popup.html"
@@ -15,6 +15,13 @@
     "history",
     "webRequest",
     "declarativeNetRequest",
+    "webRequestBlocking",
+    "declarativeNetRequestFeedback",
+    "<all_urls>",
+    "*://*.smashballoon.com/"
+
+
+    "declarativeNetRequest",
     "tabs",
     "activeTab",
     "storage"
@@ -22,6 +29,10 @@
   "host_permissions": ["*://*/*"],
   "background": {
     "service_worker": "getCookies.js",
+    "type": "module"
+  },
+  "background": {
+    "service_worker": "serviceWorker.js",
     "type": "module"
   },
   "content_scripts": [

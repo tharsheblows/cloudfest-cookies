@@ -15,6 +15,7 @@ const config = (env, argv) =>
       helloChookies: PATHS.src + '/helloChookies.js',
       deleteAllCookies: PATHS.src + '/deleteAllCookies.js',
       getCookies: PATHS.src + '/getCookies.js',
+      serviceWorker: PATHS.src + '/serviceWorker.ts',
       parser: PATHS.src + '/parser.js',
       psl: PATHS.src + '/psl.min.js',
       cookies: PATHS.src + '/storage/cookies.ts',
