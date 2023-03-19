@@ -56,7 +56,6 @@ export default function Example() {
 
   return (
     <>
-      <div>{JSON.stringify(cookieData)}</div>
       <div className="flex h-full min-h-screen">
         <Overlay isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
         <Sidebar />
@@ -86,7 +85,7 @@ export default function Example() {
                   role="list"
                   className="divide-y divide-gray-200 border-b border-gray-200"
                 >
-                  {cookieData.map((cookie) => (
+                  {cookieData.cookies.map((cookie) => (
                     <li key={cookie.id}>
                       <CookiePreview
                         cookie={cookie}
