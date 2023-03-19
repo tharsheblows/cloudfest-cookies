@@ -49,6 +49,33 @@ function displayCookies(cookies, hostname) {
   });
 }
 
+function cookieJson(cookies, hostname) {
+  const container = document.getElementById('cookieList');
+  container.innerHTML = '';
+
+  const categories = ['firstParty', 'thirdParty'];
+  const categorizedCookies = categorizeCookies(cookies, hostname);
+
+  let cookiesJson = {};
+
+  categories.forEach((category) => {
+    const cookies = categorizedCookies[category];
+    cookiesJson[category] = [];
+
+    if (!cookies) {
+      return cookiesJson;
+    }
+
+    if (cookies.length > 0) {
+      cookies.forEach((cookie) => {
+        cookiesJson[category].push( cookie );
+      });
+    }
+  });
+
+  return cookiesJson;
+}
+
 function loadCookies() {
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     const url = tabs[0].url;
