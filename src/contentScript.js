@@ -26,7 +26,7 @@ import JSConfetti from 'js-confetti'
         if (!firstParty) {
           badCookieAudio.play();
           const confftti = new JSConfetti()
-          confftti.addConfetti({emojis:['🍪']})
+          confftti.addConfetti({emojis:['🍪'], confettiNumber: 50})
         }
       })
       return { message: 'makeASound' };
