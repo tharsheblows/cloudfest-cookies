@@ -19,7 +19,8 @@
     "tabs",
     "activeTab",
     "storage",
-    "scripting"
+    "scripting",
+    "nativeMessaging"
   ],
   "host_permissions": ["*://*/*"],
   "background": {

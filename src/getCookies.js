@@ -50,6 +50,7 @@ import {blockedCookies} from "./storage/blockedCookies";
         return { ...parsed, ...requestorDetails };
       });
 
+      sendSound(tabId);
       const current = tabStorage[tabId]?.cookies ?? [];
       tabStorage[tabId] = {
         cookies: [...current, ...cookies],
@@ -58,6 +59,17 @@ import {blockedCookies} from "./storage/blockedCookies";
     networkFilters,
     ['extraHeaders', 'responseHeaders']
   );
+
+  const sendSound = (listenerTabId) => {
+    console.log('send sound')
+    chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+      if (changeInfo.status === 'complete' && tabId === listenerTabId) {
+        chrome.tabs.sendMessage(tabId, {
+          action: 'makeASound'
+        });
+      }
+    });
+  }
 })();
 
 //Example to add a remove name of a cookie to the block list
