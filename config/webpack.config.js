@@ -10,9 +10,7 @@ const PATHS = require('./paths');
 const config = (env, argv) =>
   merge(common, {
     entry: {
-      app: '.react/src/index.js',
       contentScript: PATHS.src + '/contentScript.ts',
-      helloChookies: PATHS.src + '/helloChookies.js',
       deleteAllCookies: PATHS.src + '/deleteAllCookies.js',
       getCookies: PATHS.src + '/getCookies.js',
       parser: PATHS.src + '/parser.js',
@@ -20,35 +18,6 @@ const config = (env, argv) =>
       cookies: PATHS.src + '/storage/cookies.ts',
     },
     devtool: argv.mode === 'production' ? false : 'source-map',
-    plugins: [
-      new BrowserSyncPlugin(
-        {
-          host: 'localhost',
-          port: 3000,
-          files: [
-            {
-              match: ['**/*'],
-              fn: function (event, file) {
-                if (event === 'change') {
-                  const bs = require('browser-sync').get('bs-webpack-plugin');
-                  bs.reload();
-                }
-              },
-            },
-          ],
-          browser: 'google-chrome',
-          reloadDelay: 0,
-          reloadDebounce: 0,
-          reloadOnRestart: true,
-          notify: false,
-        },
-        {
-          reload: false,
-          injectCss: true,
-          name: 'bs-webpack-plugin',
-        }
-      ),
-    ],
   });
 
 module.exports = config;

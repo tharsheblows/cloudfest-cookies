@@ -2,6 +2,7 @@
 
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const WebpackShellPluginNext = require('webpack-shell-plugin-next');
 
 const PATHS = require('./paths');
 
@@ -69,6 +70,14 @@ const common = {
         },
       ],
     }),
+    new WebpackShellPluginNext({
+      onBuildStart: {
+        blocking: true,
+        parallel: false,
+        scripts: ['echo "Start Building react..."', 'npm run build --w react', 'cp -r react/build/ build']
+      },
+    }),
+
     // Extract CSS into separate files
     new MiniCssExtractPlugin({
       filename: '[name].css',

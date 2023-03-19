@@ -1,11 +1,13 @@
 let _cookies: Cookie[] = [];
+let _url: URL | undefined;
 let _listeners: (() => void)[] = [];
 
 type Cookie = {}
 type CookieStore = {
   subscribe: (listener: () => void) => (() => void)
-  getSnapshot: () => Cookie[]
+  getSnapshot: () => { cookies: Cookie[], url: URL }
   addCookie: (cookie: Cookie) => void
+  requestCookies: () => Promise<void>
 }
 
 function emitChange() {
@@ -26,6 +28,15 @@ export const cookies: CookieStore = {
     };
   },
   getSnapshot() {
-    return _cookies.slice();
+    return { cookies: _cookies.slice(), url: _url };
+  },
+  async requestCookies() {
+    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    const response = await chrome.runtime.sendMessage({ tabId: tab.id, action: 'getCookies' });
+    // do something with response here, not outside the function
+    const cookies = response.cookies;
+    _url = tab.url ? new URL(tab.url) : undefined;
+    _cookies = cookies;
+    emitChange();
   }
 };

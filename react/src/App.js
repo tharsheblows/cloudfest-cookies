@@ -1,11 +1,14 @@
 import logo from './logo.svg';
 import './App.css';
-import Example from './components/Example';
+import Sidebar from './components/Sidebar';
+import Banner from './components/Banner';
+import Layout from './components/Layout';
 
 function App() {
   return (
     <div className="App">
-      <Example />
+      <Banner />
+      <Layout />
     </div>
   );
 }

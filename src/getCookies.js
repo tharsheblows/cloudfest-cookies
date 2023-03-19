@@ -1,6 +1,10 @@
 import cookie from 'cookie';
 import deleteAllCookies from './deleteAllCookies'
 
+import {blockedCookies} from "./storage/blockedCookies";
+
+
+
 (function () {
   const tabStorage = {};
   const networkFilters = {
@@ -24,7 +28,8 @@ import deleteAllCookies from './deleteAllCookies'
     sendResponse
   ) {
     if (request.action === 'deleteCookies'){
-      deleteAllCookies()
+      tabStorage[request.tabId].cookies = [];
+      deleteAllCookies();
     };
   });
 
@@ -54,3 +59,32 @@ import deleteAllCookies from './deleteAllCookies'
     ['extraHeaders', 'responseHeaders']
   );
 })();
+
+//Example to add a remove name of a cookie to the block list
+//blockedCookies.addCookie("MMAUTHTOKEN")
+//blockedCookies.removeCookie("MMAUTHTOKEN")
+
+chrome.cookies.onChanged.addListener(function(changeInfo) {
+
+ /* console.log('Cookie changed: ' +
+    '\n * Cookie: ' + JSON.stringify(changeInfo.cookie) +
+    '\n * Cause: ' + changeInfo.cause +
+    '\n * Removed: ' + changeInfo.removed);*/
+
+  let help = blockedCookies.getSnapshot()
+  if (help.includes(changeInfo.cookie.name) ) {
+    console.log(changeInfo)
+    chrome.cookies.remove({
+      "url": "https://" + changeInfo.cookie.domain + changeInfo.cookie.path,
+      "name": changeInfo.cookie.name
+    }, function (deleted_cookie) {
+      console.log(deleted_cookie);
+    });
+    chrome.cookies.remove({
+      "url": "http://" + changeInfo.cookie.domain + changeInfo.cookie.path,
+      "name": changeInfo.cookie.name
+    }, function (deleted_cookie) {
+      console.log(deleted_cookie);
+    });
+  }
+});
