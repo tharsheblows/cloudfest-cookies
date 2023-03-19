@@ -1,15 +1,27 @@
 import React from 'react';
 
-const CookiePreview = ({ cookie }) => {
+const CookiePreview = ({ cookie, isActive, onClick }) => {
   const classNames = (...classes) => {
     return classes.filter(Boolean).join(' ');
   };
 
   return (
-    <a href="#" className="block hover:bg-gray-50">
+    <a
+      href="#"
+      className={classNames(
+        isActive ? 'bg-gray-50' : '',
+        'block hover:bg-gray-50'
+      )}
+      onClick={onClick}
+    >
       <div className="px-4 py-4 sm:px-6">
         <div className="flex items-center justify-between">
-          <div className="truncate text-sm font-medium text-indigo-600">
+          <div
+            className={classNames(
+              isActive ? 'font-bold' : 'font-medium',
+              'truncate text-sm text-indigo-600'
+            )}
+          >
             <span>{cookie.name}</span>
           </div>
           <div className="ml-2 flex flex-shrink-0">

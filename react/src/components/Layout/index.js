@@ -6,6 +6,7 @@ import CookiePreview from '../CookiePreview';
 import DummySort from '../DummySort';
 import Overlay from '../Overlay';
 import Sidebar from '../Sidebar';
+import CookieDetails from '../CookieDetails';
 
 const cookiesTemp = [
   {
@@ -47,6 +48,7 @@ const cookiesTemp = [
 
 export default function Example() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [currentCookie, setCurrentCookie] = useState({});
   const cookieData = useSyncExternalStore(
     (callback) => cookies.subscribe(callback),
     () => cookies.getSnapshot()
@@ -97,17 +99,18 @@ export default function Example() {
                 >
                   {cookiesTemp.map((cookie) => (
                     <li key={cookie.id}>
-                      <CookiePreview cookie={cookie} />
+                      <CookiePreview
+                        cookie={cookie}
+                        isActive={cookie.id === currentCookie.id}
+                        onClick={() => setCurrentCookie(cookie)}
+                      />
                     </li>
                   ))}
                 </ul>
               </div>
             </aside>
             <main className="relative z-0 flex-1 overflow-y-auto focus:outline-none">
-              <div className="p-12">
-                <h1 className="text-2xl">cookiefirst-consent</h1>
-                <p>This cookie is used to track you between site visits.</p>
-              </div>
+              <CookieDetails cookie={currentCookie} />
             </main>
           </div>
         </div>
