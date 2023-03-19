@@ -1,5 +1,6 @@
 
 
+import cookie from 'cookie';
 //import cookie from "./storage/cookies";
 //import deleteAllCookies from './deleteAllCookies'
 
@@ -69,7 +70,6 @@ function deleteAllCookies(){
       );
       const cookies = setCookie.map((c) => {
         // SO https://stackoverflow.com/questions/10730362/get-cookie-by-name/64472572#64472572
-        // @ts-ignore
         const parsed = cookie.parse(c.value);
         const requestorDetails = {
           initiator,
