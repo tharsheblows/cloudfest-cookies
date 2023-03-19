@@ -32,6 +32,7 @@ In detail, we want to provide a tool that allows technical, and non-technical st
 1. Is the website affected by the blocking of 3rd party cookies?
 2. What 3rd party cookies is the website using?
 3. How would the website look like if 3rd party cookies are blocked?
+4. (That is the origin of 3rd party cookies used on the website?)
 
 ## Audience
 This project is addressed to technical, and none-technical stakeholders that use, or consume 3rd party cookies on a website in their work context.
