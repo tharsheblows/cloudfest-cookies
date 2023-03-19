@@ -71,14 +71,19 @@ function categorizeCookies(cookies, hostname) {
 }
 
 async function deleteCookies() {
-  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-  const response = await chrome.runtime.sendMessage({
-    tabId: tab.id,
-    action: 'deleteCookies',
-  });
-  // do something with response here, not outside the function
+  if ( confirm( 'This deletes ALL your cookies everywhere, you will be logged out of everything. Are you sure you want to do this? We need to make this tab specific. If you do this this should also delete the tab storage too I think.') ) {
+      const [tab] = await chrome.tabs.query({
+        active: true,
+        currentWindow: true,
+      });
+      const response = await chrome.runtime.sendMessage({
+        tabId: tab.id,
+        action: 'deleteCookies',
+      });
+      // do something with response here, not outside the function
 
-  return 'cookies deleted maybe, you shoud check';
+      return 'cookies deleted maybe, you shoud check';
+  }
 }
 
 
