@@ -20,7 +20,8 @@
     "activeTab",
     "storage",
     "scripting",
-    "nativeMessaging"
+    "nativeMessaging",
+    "offscreen"
   ],
   "host_permissions": ["*://*/*"],
   "background": {
