@@ -1,25 +1,23 @@
+import { cookies as cookieStore } from "./storage/cookies"
 
 let cookies;
 let deletedCookie = "EMTY";
 chrome.cookies.getAll({
 }, function (theCookies) {
-    cookies = theCookies
+  cookies = theCookies
 });
 // console.log("TEST")
 
-async function sendForCookies() {
-  const [tab] = await chrome.tabs.query({active: true, currentWindow: true});
-  const response = await chrome.runtime.sendMessage({tabId: tab.id, action: 'getCookies'});
-  // do something with response here, not outside the function
-  const url = tab.url;
-  const hostname = new URL(url).hostname;
-  const cookies = response.cookies;
-
-  return { cookies, hostname }
-}
 
 async function displayCookies() {
-  const { cookies, hostname } = await sendForCookies();
+  let unsubscribe
+  const p = new Promise((resolve, _) => {
+    unsubscribe = cookieStore.subscribe(() => { resolve() })
+    cookieStore.requestCookies()
+  })
+  const _ = await p
+  unsubscribe()
+  const { cookies, hostname } = cookieStore.getSnapshot();
   const container = document.getElementById("cookieList");
   container.innerHTML = "";
 
@@ -39,14 +37,14 @@ async function displayCookies() {
       container.appendChild(categoryElement);
 
 
-      cookies.forEach( (cookie) => {
+      cookies.forEach((cookie) => {
         const list = document.createElement('ul');
-        for ( const c in cookie ) {
+        for (const c in cookie) {
           const item = document.createElement("li");
           item.textContent = `${c}: ${cookie[c]}`;
           list.appendChild(item);
         }
-         container.appendChild(list);
+        container.appendChild(list);
       });
 
     }
@@ -71,18 +69,18 @@ function categorizeCookies(cookies, hostname) {
 }
 
 async function deleteCookies() {
-  if ( confirm( 'This deletes ALL your cookies everywhere, you will be logged out of everything. Are you sure you want to do this? We need to make this tab specific. If you do this this should also delete the tab storage too I think.') ) {
-      const [tab] = await chrome.tabs.query({
-        active: true,
-        currentWindow: true,
-      });
-      const response = await chrome.runtime.sendMessage({
-        tabId: tab.id,
-        action: 'deleteCookies',
-      });
-      // do something with response here, not outside the function
+  if (confirm('This deletes ALL your cookies everywhere, you will be logged out of everything. Are you sure you want to do this? We need to make this tab specific. If you do this this should also delete the tab storage too I think.')) {
+    const [tab] = await chrome.tabs.query({
+      active: true,
+      currentWindow: true,
+    });
+    const response = await chrome.runtime.sendMessage({
+      tabId: tab.id,
+      action: 'deleteCookies',
+    });
+    // do something with response here, not outside the function
 
-      return 'cookies deleted maybe, you shoud check';
+    return 'cookies deleted maybe, you shoud check';
   }
 }
 
@@ -94,18 +92,18 @@ document.getElementById("buttonsPrintAll").addEventListener("click", printAll);
 
 
 function printAll() {
- //   var source = document.getElementById('source').value;
-    //document.getElementById("result").innerHTML = source;
-    console.log(cookies)
-    document.getElementById("result").innerHTML = JSON.stringify(cookies)
+  //   var source = document.getElementById('source').value;
+  //document.getElementById("result").innerHTML = source;
+  console.log(cookies)
+  document.getElementById("result").innerHTML = JSON.stringify(cookies)
 }
 
-function deleteFirstOne(){
-deletedCookie = cookies.pop()
+function deleteFirstOne() {
+  deletedCookie = cookies.pop()
 }
-function printDeleteOne(){
-console.log(deletedCookie)
+function printDeleteOne() {
+  console.log(deletedCookie)
 }
-function addFirstOne(){
+function addFirstOne() {
 
 }
