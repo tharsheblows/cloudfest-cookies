@@ -1,8 +1,8 @@
 
 
 import cookie from 'cookie';
-//import cookie from "./storage/cookies";
-//import deleteAllCookies from './deleteAllCookies'
+
+import {blockedCookies} from './storage/blockedCookies'
 
 
 function deleteAllCookies(){
@@ -90,19 +90,20 @@ function deleteAllCookies(){
   );
 })();
 
+blockedCookies.addCookie("AWSALB")
 
 chrome.webRequest.onHeadersReceived.addListener((details) => {
   if (details.responseHeaders) {
-   // console.log("TEST")
-   // console.log(details)
     return {
       responseHeaders: details.responseHeaders.filter((x:any) => {
-        console.log()
-        if (x.name.toLowerCase() === 'set-cookie') {
-          console.log("ICH BLOCKE")
-       //   console.log(details)
+
+        const isCookieHeader = (x.name.toLowerCase() === 'set-cookie')
+        if (!isCookieHeader ) {
+          return true
         }
-        return x.name.toLowerCase() !== 'set-cookie';
+        const name = x.value.split("=")[0]
+        const blockedCookiesList = blockedCookies.getSnapshot()
+        return !blockedCookiesList.includes(name)
       })
 
     };
