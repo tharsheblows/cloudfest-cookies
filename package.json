@@ -4,14 +4,13 @@
   "description": "My Chrome Extension",
   "private": true,
   "scripts": {
-    "watch": "webpack --mode=development --watch --config config/webpack.config.js"
+    "watch": "webpack --mode=development --watch --config config/webpack.config.js",
+    "clean": "rm -rf build && rm -rf react/build && echo 'Cleaned everythin'"
   },
   "workspaces": [
     "react"
   ],
   "devDependencies": {
-    "browser-sync": "^2.29.0",
-    "browser-sync-webpack-plugin": "^2.3.0",
     "copy-webpack-plugin": "^10.2.4",
     "css-loader": "^6.7.3",
     "file-loader": "^6.2.0",
