@@ -35,7 +35,7 @@ Important documents or articles that supplemented the decision process.
 Technical Story: none
 
 #### Context
-There are multiple ways to create awareness for the upcoming changes for 3rd party cookies caused by the EU ePrivacy Directive 2022.
+There are multiple ways to create awareness for the upcoming changes caused by the blocking of 3rd party cookies my browser providers.
 We have to decide on a way that is achievable during the Cloudfest Hackathon and providing value for technical and non-technical users.
 
 #### Considered Options
@@ -48,7 +48,7 @@ Implementation of a browser plugin for Google Chrome.
 
 #### Consequences
 First increment will use the Google Chrome API.
-This allows for a fast MVP, but makes the solution platform specific. 
+This allows for a fast MVP, but makes the solution platform specific.
   
 
 #### Notes / Links
