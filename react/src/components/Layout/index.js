@@ -54,7 +54,6 @@ export default function Example() {
     cookies.getSyncStore(chrome?.devtools?.inspectedWindow?.tabId);
   const cookieData = useSyncExternalStore(subscribe, getSnapshot);
 
-
   return (
     <>
       <div>{JSON.stringify(cookieData)}</div>
@@ -86,17 +85,7 @@ export default function Example() {
                 <ul
                   role="list"
                   className="divide-y divide-gray-200 border-b border-gray-200"
-                >
-                  {cookiesTemp.map((cookie) => (
-                    <li key={cookie.id}>
-                      <CookiePreview
-                        cookie={cookie}
-                        isActive={cookie.id === currentCookie.id}
-                        onClick={() => setCurrentCookie(cookie)}
-                      />
-                    </li>
-                  ))}
-                </ul>
+                ></ul>
               </div>
             </aside>
             <main className="relative z-0 flex-1 overflow-y-auto focus:outline-none">

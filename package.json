@@ -30,6 +30,7 @@
     "cookie": "^0.5.0",
     "material-design-lite": "^1.3.0",
     "material-icons-font": "^2.1.0",
-    "react-scripts": "^5.0.1"
+    "react-scripts": "^5.0.1",
+    "simple-cookie": "^1.0.13"
   }
 }
