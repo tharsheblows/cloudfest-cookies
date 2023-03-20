@@ -83,7 +83,7 @@ Afterwards add the `build` folder in your chrome extensions (after enabling deve
 
 ## Cloudfest Hackathon
 
-This Extension was developed during the [Cloudfest Hackathon 2023](https://www.cloudfest.com/hackathon) by [@Stefan0x](https://github.com/Stefan0x), [@airsplitter](https://github.com/airsplitter), [@genesfa](https://github.com/genesfa), [@janvogt](https://github.com/janvogt), [@andreylipattsev](https://github.com/andreylipattsev), [@benjaminburkhardt](https://github.com/benjaminburkhardt), [@mehdi-bh](https://github.com/mehdi-bh), [@YoZe24](https://github.com/YoZe24),[@KathiBoguth](https://githuib.com/KathiBoguth), [@johannhof](https://github.com/johannhof), [@tharsheblows](https://github.com/tharsheblows), [@LorenFiorinim](https://github.com/LorenFiorinim), [@bibatwork](https://github.com/bibatwork), [@Max-eMundo](https://github.com/Max-eMundo)
+This Extension was developed during the [Cloudfest Hackathon 2023](https://www.cloudfest.com/hackathon) by [@Stefan0x](https://github.com/Stefan0x), [@airsplitter](https://github.com/airsplitter), [@genesfa](https://github.com/genesfa), [@janvogt](https://github.com/janvogt), [@andreylipattsev](https://github.com/andreylipattsev), [@benjaminburkhardt](https://github.com/benjaminburkhardt), [@mehdi-bh](https://github.com/mehdi-bh), [@YoZe24](https://github.com/YoZe24),[@KathiBoguth](https://githuib.com/KathiBoguth), [@johannhof](https://github.com/johannhof), [@tharsheblows](https://github.com/tharsheblows), [@LorenFiorini](https://github.com/LorenFiorini), [@bibatwork](https://github.com/bibatwork), [@Max-eMundo](https://github.com/Max-eMundo)
 
 ### Wacky Hackathon things:
 
