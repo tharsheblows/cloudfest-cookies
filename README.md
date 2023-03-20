@@ -3,20 +3,22 @@
 ### Table of contents
 
 <!--ts-->
-- [Problem Description](#problem-description)
-- [Purpose](#purpose)
-- [Audience](#audience)
-- [Future Improvements](#future-improvements)
-- [Documentation](#documentation)
-  - [Sketches](#sketches)
-  - [Development modules](#development-modules)
-  - [Whitebox view](#whitebox-view)
-  - [Architecture Decision Records (ADRs)](#architecture-decision-records-adrs)
-  - [Glossary](#glossary)
-- [Development](#development)
-  - [Running the project](#running-the-project)
-- [Cloudfest Hackathon](#cloudfest-hackathon)
-  - [Wacky Hackathon things](#wacky-hackathon-things)
+- [Cookie Analysis Tool](#cookie-analysis-tool)
+    - [Table of contents](#table-of-contents)
+  - [Problem Description](#problem-description)
+  - [Purpose](#purpose)
+  - [Audience](#audience)
+  - [Future Improvements](#future-improvements)
+  - [Documentation](#documentation)
+    - [Sketches](#sketches)
+    - [Development modules](#development-modules)
+    - [Whitebox view](#whitebox-view)
+    - [Architecture Decision Records (ADRs)](#architecture-decision-records-adrs)
+    - [Glossary](#glossary)
+  - [Development](#development)
+    - [Running the project](#running-the-project)
+  - [Cloudfest Hackathon](#cloudfest-hackathon)
+    - [Wacky Hackathon things:](#wacky-hackathon-things)
 <!--te-->
 
 ## Problem Description
@@ -24,7 +26,7 @@ Private browsing on the internet is a concern of users [[1]]( https://www.statis
 One of that features is blocking 3rd party cookies to stop cross-side tracking.
 This increases privacy, but also affects the functionality of currently existing websites as a lot of embedded elements on a website, such as iframes, are heavily using 3rd party cookies.
 
-By mid 2024, all 3rd party cookies will be blocked in most browsers, including Google Chrome [[3]]( https://privacysandbox.com/open-web/#the-privacy-sandbox-timeline ) (e.g. Safari is blocking 3rd party cookies already; state: 2023-03-19). 
+By mid 2024, all 3rd party cookies will be blocked in most browsers, including Google Chrome [[3]]( https://privacysandbox.com/open-web/#the-privacy-sandbox-timeline ) (e.g. Safari is blocking 3rd party cookies already; state: 2023-03-19).
 Google Chrome is with a market share of 79.7% the most widely adopted browser in February 2023 [[4]]( https://www.w3schools.com/browsers/ ). Due to that, the upcoming change will have a significant impact on the browsing experience, and internet marketing industries if not addressed in time.
 
 ## Purpose
@@ -71,7 +73,7 @@ Find the glossary [here](/docs/GLOSSARY.md).
 ### Running the project
 
 ```shell
-# Install the dependencies 
+# Install the dependencies
 npm i
 # Build react app and watch changes in the extension folder
 npm run watch
@@ -81,9 +83,10 @@ Afterwards add the `build` folder in your chrome extensions (after enabling deve
 
 ## Cloudfest Hackathon
 
-This Extension was developed during the [Cloudfest Hackathon 2023](https://www.cloudfest.com/hackathon).
+This Extension was developed during the [Cloudfest Hackathon 2023](https://www.cloudfest.com/hackathon) by [@Stefan0x](https://github.com/Stefan0x), [@airsplitter](https://github.com/airsplitter), [@genesfa](https://github.com/genesfa), [@janvogt](https://github.com/janvogt), [@andreylipattsev](https://github.com/andreylipattsev), [@benjaminburkhardt](https://github.com/benjaminburkhardt), [@mehdi-bh](https://github.com/mehdi-bh), [@YoZe24](https://github.com/YoZe24),[@KathiBoguth](https://githuib.com/KathiBoguth), [@johannhof](https://github.com/johannhof), [@tharsheblows](https://github.com/tharsheblows), [@LorenFiorinim](https://github.com/LorenFiorinim), [@bibatwork](https://github.com/bibatwork), [@Max-eMundo](https://github.com/Max-eMundo)
 
 ### Wacky Hackathon things:
+
 - In order to have the `storage/cookies.ts` available in the react-app we need to copy it in the `prebuild` of the react `package.json`.
 
 
