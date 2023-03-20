@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Cloudfest Cookies",
   "version": "0.1.0",
-  "description": "My Chrome Extension",
+  "description": "Cloudfest Hackathon 2023 Cookie Analysis Tool",
   "devtools_page": "devtools/page.html",
   "icons": {
     "16": "icons/take-a-bite16.png",
