@@ -37,13 +37,13 @@ const CookiePreview = ({
             </span>
             <span
               className={classNames(
-                !toplevel.includes(cookie.domain)
+                toplevel.includes(cookie.domain)
                   ? 'bg-green-100 text-green-800'
                   : 'bg-orange-400 text-white',
                 'inline-flex rounded-full px-2 text-xs font-semibold leading-5'
               )}
             >
-              {!toplevel.includes(cookie.domain) ? '1st Party' : '3rd Party'}
+              {toplevel.includes(cookie.domain) ? '1st Party' : '3rd Party'}
             </span>
           </div>
         </div>
