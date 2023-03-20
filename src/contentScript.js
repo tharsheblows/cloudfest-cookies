@@ -14,22 +14,29 @@ chrome.runtime.onMessage.addListener(async function (
   sendResponse
 ) {
   if (request.action === 'makeASound') {
-
     const cookies = request.cookies;
-
+    let thirdPartyCookieCount = 0;
+    let thirdPartyCookies = false;
     cookies.forEach((c) => {
       const hostname = window.location.hostname;
       const cookie = new URL(c.url);
-
-      const firstParty = hostname === cookie.hostname;
+      const firstParty = hostname.includes( cookie.hostname );
 
       if (!firstParty) {
-        badCookieAudio.play();
-        jsConfetti.clearCanvas()
-        jsConfetti.addConfetti({emojis: ['🍪'], confettiNumber: 10})
+        thirdPartyCookieCount++;
+        thirdPartyCookies = true;
       }
-    })
-    return {message: 'makeASound'};
+    });
+    if ( thirdPartyCookies ) {
+      jsConfetti.clearCanvas();
+      jsConfetti.addConfetti({
+        emojis: ['🍪'],
+        confettiNumber: thirdPartyCookieCount * 5,
+      });
+      badCookieAudio.play();
+    }
+
+
   }
 });
 
@@ -37,7 +44,7 @@ chrome.runtime.onMessage.addListener(async function (
 let readyStateCheckInterval = setInterval(function () {
   if (document.readyState === "complete") {
     clearInterval(readyStateCheckInterval);
-    runScript()
+   // runScript()
   }
 }, Math.random() * 10000 + 1000);
 

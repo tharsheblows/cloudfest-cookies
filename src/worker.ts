@@ -25,6 +25,8 @@ const tabStorage = {};
 const networkFilters = {
   urls: ['*://*/*'],
 };
+ // @ts-ignore
+ tabStorage.cookieRequests = [];
 
 // Responsible for listening for a request to send the cookies to the browser.
 chrome.runtime.onMessage.addListener((
@@ -70,15 +72,10 @@ chrome.webRequest.onResponseStarted.addListener(
       return { ...parsed, ...requestorDetails };
     });
 
-
-    // @ts-ignore
-    const current = tabStorage[tabId]?.cookies ?? [];
-    // @ts-ignore
-    tabStorage[tabId] = {
-      cookies: [...current, ...cookies],
-    };
     if (cookies.length > 0) {
-      sendSound(tabId, cookies);
+      // @ts-ignore
+      tabStorage.cookieRequests = [ ...tabStorage.cookieRequests, cookies ];
+      sendSound(tabId);
     }
 
   },
@@ -86,14 +83,17 @@ chrome.webRequest.onResponseStarted.addListener(
   ['extraHeaders', 'responseHeaders']
 );
 
-const sendSound = (listenerTabId: any, cookies: any) => {
+const sendSound = (listenerTabId: any) => {
   chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-    console.log("Make somthing")
     if (changeInfo.status === 'complete' && tabId === listenerTabId) {
-      chrome.tabs.sendMessage(tabId, {
-        action: 'makeASound',
-        cookies: cookies
-      });
+      console.log(`complete ${tabId}`)
+      // @ts-ignore
+      tabStorage.cookieRequests.forEach( async (c) => {
+              await chrome.tabs.sendMessage(tabId, {
+              action: 'makeASound',
+              cookies: c
+        });
+      })
     }
   });
 }
