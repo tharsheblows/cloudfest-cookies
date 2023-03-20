@@ -11,7 +11,6 @@ const config = (env, argv) =>
     entry: {
       contentScript: PATHS.src + '/contentScript.js',
       deleteAllCookies: PATHS.src + '/deleteAllCookies.js',
-      getCookies: PATHS.src + '/getCookies.js',
       parser: PATHS.src + '/parser.js',
       psl: PATHS.src + '/psl.min.js',
       cookies: PATHS.src + '/storage/cookies.ts',
