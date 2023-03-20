@@ -1,7 +1,7 @@
 {
   "name": "cloudfest-cookies",
   "version": "0.1.0",
-  "description": "My Chrome Extension",
+  "description": "Cloudfest Hackathon 2023 Cookie Analysis Tool",
   "private": true,
   "scripts": {
     "watch": "webpack --mode=development --watch --config config/webpack.config.js",

@@ -8,44 +8,6 @@ import Overlay from '../Overlay';
 import Sidebar from '../Sidebar';
 import CookieDetails from '../CookieDetails';
 
-const cookiesTemp = [
-  {
-    id: 'someid3',
-    name: 'UserMatchHistory',
-    url: '.linkedin.com',
-    value:
-      'AQKZWm9of69k1AAAAYb5BJOfgLvem54nsBIaSvOSw6vuG07D7zR-yEbZr87bWVCEYbt_qZmkuln8Dw',
-    category: 'tracking',
-    active: false,
-  },
-  {
-    id: 'someid1',
-    name: 'cookiefirst-consent',
-    url: 'www.cloudfest.com',
-    value:
-      '%7B%22necessary%22%3Atrue%2C%22performance%22%3Atrue%2C%22functional%22%3Atrue%2C%22advertising%22%3Atrue%2C%22timestamp%22%3A1679215079%2C%22type%22%3A%22category%22%2C%22version%22%3A%22c838beda-6c15-421b-87b0-0cfb408b5bdf%22%7D',
-    category: 'analytics',
-    active: true,
-  },
-  {
-    id: 'someid2',
-    name: 'ln_or',
-    url: 'www.cloudfest.com',
-    value: 'eyI0MzMxNzM4IjoiZCJ9',
-    category: 'session',
-    active: true,
-  },
-
-  {
-    id: 'someid4',
-    name: 'guest_id',
-    url: '.twitter.com',
-    value: 'v1%3A167921507214501224',
-    category: 'analytics',
-    active: true,
-  },
-];
-
 export default function Example() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [currentCookie, setCurrentCookie] = useState(undefined);
@@ -87,10 +49,6 @@ export default function Example() {
                 >
                   {cookieData.cookies.map(
                     ({ cookie, analytics, origin, toplevel }, idx) => {
-                      console.log({ cookie });
-                      console.log({ analytics });
-                      console.log({ origin });
-                      console.log({ toplevel });
                       return (
                         <li key={idx}>
                           <CookiePreview
@@ -98,7 +56,7 @@ export default function Example() {
                             analytics={analytics}
                             origin={origin}
                             toplevel={toplevel}
-                            isActive={currentCookie && cookie.name === currentCookie.cookie.name}
+                            isActive={false}
                             onClick={() =>
                               setCurrentCookie({ cookie, analytics })
                             }
@@ -111,11 +69,14 @@ export default function Example() {
               </div>
             </aside>
             <main className="relative z-0 flex-1 overflow-y-auto focus:outline-none">
-              {currentCookie ? <CookieDetails
-                cookie={currentCookie.cookie}
-                analytics={currentCookie.analytics}
-              /> : []}
-
+              {currentCookie ? (
+                <CookieDetails
+                  cookie={currentCookie.cookie}
+                  analytics={currentCookie.analytics}
+                />
+              ) : (
+                []
+              )}
             </main>
           </div>
         </div>
