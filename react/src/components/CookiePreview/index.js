@@ -12,6 +12,16 @@ const CookiePreview = ({
     return classes.filter(Boolean).join(' ');
   };
 
+  const isFirstParty = (toplevel, cookie) => {
+    let domainName = cookie.domain;
+
+    if (domainName.charAt(0) === '.') {
+      domainName = domainName.substring(1);
+    }
+
+    return toplevel.includes(domainName);
+  };
+
   return (
     <a
       href="#"
@@ -37,13 +47,13 @@ const CookiePreview = ({
             </span>
             <span
               className={classNames(
-                toplevel.includes(cookie.domain)
+                isFirstParty(toplevel, cookie)
                   ? 'bg-green-100 text-green-800'
                   : 'bg-orange-400 text-white',
                 'inline-flex rounded-full px-2 text-xs font-semibold leading-5'
               )}
             >
-              {toplevel.includes(cookie.domain) ? '1st Party' : '3rd Party'}
+              {isFirstParty(toplevel, cookie) ? '1st Party' : '3rd Party'}
             </span>
           </div>
         </div>
